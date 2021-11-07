@@ -17,7 +17,7 @@ import io.ims.backend.Models.User;
 import io.ims.backend.Repository.UserRepository;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
