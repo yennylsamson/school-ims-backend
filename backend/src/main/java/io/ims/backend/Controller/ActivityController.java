@@ -54,7 +54,7 @@ public class ActivityController {
     }
 
     //DELETE USER
-    @DeleteMapping("/{courseID}")
+    @DeleteMapping("/{activityID}")
     public Integer deleteActivity(@PathVariable Integer activityID){
         activityRepository.deleteById(activityID);
         return activityID;
