@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import io.ims.backend.Repository.UserRepository;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -30,8 +32,8 @@ public class UserController {
 
     //GET SINGLE USER
     @GetMapping("/{userID}")
-    public User getUser(@PathVariable Integer id){
-        return userRepository.findById(id).orElse(null);
+    public User getUser(@PathVariable Integer userID){
+        return userRepository.findById(userID).orElse(null);
     }
 
     //POST USER
@@ -52,8 +54,8 @@ public class UserController {
 
     //DELETE USER
     @DeleteMapping("/{userID}")
-    public Integer deleteUser(@PathVariable Integer id){
-        userRepository.deleteById(id);
-        return id;
+    public Integer deleteUser(@PathVariable Integer userID){
+        userRepository.deleteById(userID);
+        return userID;
     }
 }
