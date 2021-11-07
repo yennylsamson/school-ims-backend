@@ -1,22 +1,24 @@
 package io.ims.backend.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Course {
     @Id
-    private int courseId;
+    @GeneratedValue
+    public int courseID;
     public String courseName;
     public String courseCode;
     public String chairperson;
 
-    public int getCourseId() {
-        return this.courseId;
+    public int getCourseID() {
+        return this.courseID;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 
     public String getCourseName() {
