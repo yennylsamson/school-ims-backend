@@ -1,4 +1,4 @@
-package io.mahesh.backend;
+package io.ims.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
