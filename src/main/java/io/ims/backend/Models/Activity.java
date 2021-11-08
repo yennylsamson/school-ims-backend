@@ -1,31 +1,44 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 public class Activity {
    @Id
-   @GeneratedValue
-   public int activityID;
+   @SequenceGenerator(
+           name = "activity_sequence",
+           sequenceName = "activity_sequence",
+           allocationSize = 1
+   )
+   @GeneratedValue(
+           strategy = GenerationType.SEQUENCE,
+           generator = "activity_sequence"
+   )
+   public Long activityID;
    public String activityName;
    public String activityType;
-   public int studentScore;
-   public int totalScore;
+   public Integer studentScore;
+   public Integer totalScore;
 
-   public int getActivityID() {
+   public Activity (String activityName, String activityType, Integer studentScore, Integer totalScore) {
+       this.activityName = activityName;
+       this.activityType = activityType;
+       this.studentScore = studentScore;
+       this.totalScore = totalScore;
+   }
+
+   public Long getActivityID() {
        return this.activityID;
    }
 
-   public void setActivityID(int activityID) {
+   public void setActivityID(Long activityID) {
        this.activityID = activityID;
    }
 
@@ -45,19 +58,19 @@ public class Activity {
        this.activityType = activityType;
    }
 
-   public int getStudentScore() {
+   public Integer getStudentScore() {
        return this.studentScore;
    }
 
-   public void setStudentScore(int studentScore) {
+   public void setStudentScore(Integer studentScore) {
        this.studentScore = studentScore;
    }
 
-   public int getTotalScore() {
+   public Integer getTotalScore() {
        return this.totalScore;
    }
 
-   public void setTotalScore(int totalScore) {
+   public void setTotalScore(Integer totalScore) {
        this.totalScore = totalScore;
    }
 
