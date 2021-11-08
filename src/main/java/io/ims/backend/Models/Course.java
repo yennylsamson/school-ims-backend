@@ -21,16 +21,22 @@ public class Course {
             strategy = GenerationType.SEQUENCE,
             generator = "course_sequence"
     )
-    public Integer courseID;
+    public Long courseID;
     public String courseName;
     public String courseCode;
     public String chairperson;
 
-    public Integer getCourseID() {
+    public Course (String courseName, String courseCode, String chairperson) {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.chairperson = chairperson;
+    }
+
+    public Long getCourseID() {
         return this.courseID;
     }
 
-    public void setCourseID(Integer courseID) {
+    public void setCourseID(Long courseID) {
         this.courseID = courseID;
     }
 

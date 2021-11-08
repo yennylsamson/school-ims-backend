@@ -12,17 +12,14 @@ import java.util.Optional;
 
 @Service
 public class CourseService {
-
     private final CourseRepository courseRepository;
 
-
     @Autowired
-    public  CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
-
-    public List<Course> getActivities() {
+    public List<Course> getCourses() {
         return courseRepository.findAll();
     }
 
@@ -44,9 +41,9 @@ public class CourseService {
 
     @Transactional
     public void updateCourse(Long courseID,
-                              String courseName,
-                              String courseCode,
-                              String chairperson) {
+                             String courseName,
+                             String courseCode,
+                             String chairperson) {
         Course course = courseRepository.findById(courseID)
                 .orElseThrow(() -> new IllegalStateException(
                         "course with id " + courseID + " does not exists"
@@ -65,8 +62,11 @@ public class CourseService {
         }
 
         if (chairperson != null &&
+                chairperson.length() > 0 &&
                 !Objects.equals(course.getChairperson(), course)) {
             course.setChairperson(chairperson);
         }
+
+
     }
 }
