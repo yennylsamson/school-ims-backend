@@ -7,6 +7,6 @@ import io.ims.backend.Models.Course;
 
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Integer>{
+public interface CourseRepository extends JpaRepository<Course, Long>{
     
 }
