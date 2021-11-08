@@ -27,6 +27,13 @@ public class Activity {
    public Integer studentScore;
    public Integer totalScore;
 
+   public Activity (String activityName, String activityType, Integer studentScore, Integer totalScore) {
+       this.activityName = activityName;
+       this.activityType = activityType;
+       this.studentScore = studentScore;
+       this.totalScore = totalScore;
+   }
+
    public Long getActivityID() {
        return this.activityID;
    }

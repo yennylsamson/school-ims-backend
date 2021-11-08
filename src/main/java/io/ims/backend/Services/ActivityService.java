@@ -15,10 +15,12 @@ public class ActivityService {
 
     private final ActivityRepository activityRepository;
 
+
     @Autowired
     public  ActivityService(ActivityRepository activityRepository) {
         this.activityRepository = activityRepository;
     }
+
 
     public List<Activity> getActivities() {
         return activityRepository.findAll();
@@ -29,10 +31,6 @@ public class ActivityService {
     }
 
     public void addNewActivity(Activity activity) {
-        Optional<Activity> activityOptional = activityRepository.findById(activity.getActivityID());
-        if (activityOptional.isPresent()) {
-            throw new IllegalStateException("Activity ID already existing");
-        }
         activityRepository.save(activity);
     }
 
@@ -45,7 +43,7 @@ public class ActivityService {
     }
 
     @Transactional
-    public void updateStudent(Long activityID,
+    public void updateActivity(Long activityID,
                               String activityName,
                               String activityType,
                               Integer studentScore,
