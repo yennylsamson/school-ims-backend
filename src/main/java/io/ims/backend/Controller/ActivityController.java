@@ -1,62 +1,62 @@
 package io.ims.backend.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 
+import io.ims.backend.Services.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.ims.backend.Models.Activity;
-import io.ims.backend.Repository.ActivityRepository;
 
 @RestController
-@RequestMapping("/activities")
+@RequestMapping(path ="activities")
 @CrossOrigin
 public class ActivityController {
+
+    private final ActivityService activityService;
+
     @Autowired
-    private ActivityRepository activityRepository;
+    public ActivityController (ActivityService activityService) {
+        this.activityService = activityService;
+    }
 
     //GET ALL
-    @GetMapping("/")
-    public List<Activity> getActivity(){
-        return activityRepository.findAll();
+    @GetMapping()
+    public List<Activity> getAllActivities(){
+        return activityService.getActivities();
     }
 
     //GET SINGLE USER
-    @GetMapping("/{activityID}")
-    public Activity getActivity(@PathVariable Integer activityID){
-        return activityRepository.findById(activityID).orElse(null);
+    @GetMapping(path = "{activityID}")
+    public Optional<Activity> getActivityByID(
+            @PathVariable("activityID") Long activityID){
+        return activityService.getActivityByID(activityID);
     }
 
     //POST USER
-    @PostMapping("/")
-    public Activity postActivity(@RequestBody Activity activity){
-        return activityRepository.save(activity);
+    @PostMapping()
+    public void registerNewActivity(@RequestBody Activity activity){
+        activityService.addNewActivity(activity);
     }
 
     //PUT USER
-    @PutMapping("/")
-    public Activity putActivity(@RequestBody Activity activity){
-        Activity oldActivity = activityRepository.findById(activity.getActivityID()).orElse(null);
-        oldActivity.setActivityName(activity.getActivityName());
-        oldActivity.setActivityType(activity.getActivityType());
-        oldActivity.setStudentScore(activity.getStudentScore());
-        oldActivity.setTotalScore(activity.getTotalScore());
-        return activityRepository.save(oldActivity);
+    @PutMapping(path = "{activityID}")
+    public void updateActivity(
+            @PathVariable("activityID") Long activityID,
+            @RequestParam(required = false) String activityName,
+            @RequestParam(required = false) String activityType,
+            @RequestParam(required = false) Integer studentScore,
+            @RequestParam(required = false) Integer totalScore
+    ){
+        activityService.updateActivity(activityID, activityName, activityType, studentScore, totalScore);
     }
 
     //DELETE USER
-    @DeleteMapping("/{activityID}")
-    public Integer deleteActivity(@PathVariable Integer activityID){
-        activityRepository.deleteById(activityID);
-        return activityID;
+    @DeleteMapping(path = "{activityID}")
+    public void deleteActivity(
+            @PathVariable("activityID") Long activityID){
+        activityService.deleteActivity(activityID);
     }
 }

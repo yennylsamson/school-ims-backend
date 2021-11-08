@@ -1,61 +1,59 @@
 package io.ims.backend.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 
+import io.ims.backend.Services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.ims.backend.Models.Course;
-import io.ims.backend.Repository.CourseRepository;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping(path = "courses")
 @CrossOrigin
 public class CourseController {
+    private final CourseService courseService;
+
     @Autowired
-    private CourseRepository courseRepository;
+    public CourseController (CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     //GET ALL
-    @GetMapping("/")
-    public List<Course> getCourse(){
-        return courseRepository.findAll();
+    @GetMapping()
+    public List<Course> getAllCourses(){
+        return courseService.getCourses();
     }
 
     //GET SINGLE USER
-    @GetMapping("/{courseID}")
-    public Course getCourse(@PathVariable Integer id){
-        return courseRepository.findById(id).orElse(null);
+    @GetMapping(path = "{courseID}")
+    public Optional<Course> getCourseByID(
+            @PathVariable("courseID") Long courseID){
+        return courseService.getCourseByID(courseID);
     }
 
     //POST USER
-    @PostMapping("/")
-    public Course postCourse(@RequestBody Course course){
-        return courseRepository.save(course);
+    @PostMapping()
+    public void registerNewCourse(@RequestBody Course course){
+        courseService.addNewCourse(course);
     }
 
     //PUT USER
-    @PutMapping("/")
-    public Course putCourse(@RequestBody Course course){
-        Course oldCourse = courseRepository.findById(course.getCourseID()).orElse(null);
-        oldCourse.setCourseName(course.getCourseName());
-        oldCourse.setCourseCode(course.getCourseCode());
-        oldCourse.setChairperson(course.getChairperson());
-        return courseRepository.save(oldCourse);
+    @PutMapping(path = "{courseID}")
+    public void updateCourse(
+            @PathVariable("courseID") Long courseID,
+            @RequestParam(required = false) String courseName,
+            @RequestParam(required = false) String courseCode,
+            @RequestParam(required = false) String chairperson){
+        courseService.updateCourse(courseID, courseName, courseCode, chairperson);
     }
 
     //DELETE USER
-    @DeleteMapping("/{courseID}")
-    public Integer deleteCourse(@PathVariable Integer courseID){
-        courseRepository.deleteById(courseID);
-        return courseID;
+    @DeleteMapping(path = "{courseID}")
+    public void deleteCourse(
+            @PathVariable("courseID") Long courseID){
+        courseService.deleteCourse(courseID);
     }
 }
