@@ -1,67 +1,55 @@
 package io.ims.backend.Models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Entity
-@Table
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "studentID")
-public class Student extends User{
-    @Id
-    @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
-    )
-    private Long studentID;
-    private Long courseID;
-    private Integer yearLevel;
-    private String section;
+public class Student {
+   @Id
+   @GeneratedValue
+   private int studentID;
+   private String yearLevel;
+   private String course;
+   private String section;
 
-    public Student(Integer userID, String email, String password, String userRole, Long courseID, Integer yearLevel, String section) {
-        super(userID, email, password, userRole);
-        this.courseID = courseID;
-        this.yearLevel = yearLevel;
-        this.section = section;
-    }
+   public int getStudentID() {
+       return this.studentID;
+   }
 
-    public Long getStudentID() {
-        return studentID;
-    }
+   public void setStudentID(int studentID) {
+       this.studentID = studentID;
+   }
 
-    public void setStudentID(Long studentID) {
-        this.studentID = studentID;
-    }
+   public String getYearLevel() {
+       return this.yearLevel;
+   }
 
-    public Long getCourseID() {
-        return courseID;
-    }
+   public void setYearLevel(String yearLevel) {
+       this.yearLevel = yearLevel;
+   }
 
-    public void setCourseID(Long courseID) {
-        this.courseID = courseID;
-    }
+   public String getCourse() {
+       return this.course;
+   }
 
-    public Integer getYearLevel() {
-        return yearLevel;
-    }
+   public void setCourse(String course) {
+       this.course = course;
+   }
 
-    public void setYearLevel(Integer yearLevel) {
-        this.yearLevel = yearLevel;
-    }
+   public String getSection() {
+       return this.section;
+   }
 
-    public String getSection() {
-        return section;
-    }
+   public void setSection(String section) {
+       this.section = section;
+   }
 
-    public void setSection(String section) {
-        this.section = section;
-    }
 }
