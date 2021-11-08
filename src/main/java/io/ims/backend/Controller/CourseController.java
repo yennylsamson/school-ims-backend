@@ -54,8 +54,8 @@ public class CourseController {
 
     //DELETE USER
     @DeleteMapping("/{courseID}")
-    public Integer deleteCourse(@PathVariable Integer id){
-        courseRepository.deleteById(id);
-        return id;
+    public Integer deleteCourse(@PathVariable Integer courseID){
+        courseRepository.deleteById(courseID);
+        return courseID;
     }
 }
