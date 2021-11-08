@@ -1,8 +1,6 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,24 +10,46 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails{
+@PrimaryKeyJoinColumn(name = "detailsID")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UserDetails extends User{
   @Id
-  @GeneratedValue
-  private int detailsID;
+  @SequenceGenerator(
+          name = "details_sequence",
+          sequenceName = "details_sequence",
+          allocationSize = 1
+  )
+  @GeneratedValue(
+          strategy = GenerationType.SEQUENCE,
+          generator = "details_sequence"
+  )
+  private Long detailsID;
   private String firstName;
   private String lastName;
   private String gender;
-  private int age;
+  private Integer age;
   private String birthDate;
   private String homeAddress;
-  private int contactNumber;
+  private Integer contactNumber;
   private String civilStatus;
 
-  public int getDetailsID() {
+    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
+        super(email, password, userRole);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+        this.birthDate = birthDate;
+        this.homeAddress = homeAddress;
+        this.contactNumber = contactNumber;
+        this.civilStatus = civilStatus;
+    }
+
+    public Long getDetailsID() {
       return this.detailsID;
   }
 
-  public void setDetailsID(int detailsID) {
+  public void setDetailsID(Long detailsID) {
       this.detailsID = detailsID;
   }
 
@@ -57,11 +77,11 @@ public class UserDetails{
       this.gender = gender;
   }
 
-  public int getAge() {
+  public Integer getAge() {
       return this.age;
   }
 
-  public void setAge(int age) {
+  public void setAge(Integer age) {
       this.age = age;
   }
 
@@ -81,11 +101,11 @@ public class UserDetails{
       this.homeAddress = homeAddress;
   }
 
-  public int getContactNumber() {
+  public Integer getContactNumber() {
       return this.contactNumber;
   }
 
-  public void setContactNumber(int contactNumber) {
+  public void setContactNumber(Integer contactNumber) {
       this.contactNumber = contactNumber;
   }
 

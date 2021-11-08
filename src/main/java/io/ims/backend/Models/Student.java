@@ -1,8 +1,6 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,19 +10,35 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+@PrimaryKeyJoinColumn(name = "studentID")
+public class Student extends UserDetails{
    @Id
-   @GeneratedValue
-   private int studentID;
+   @SequenceGenerator(
+           name = "student_sequence",
+           sequenceName = "student_sequence",
+           allocationSize = 1
+   )
+   @GeneratedValue(
+           strategy = GenerationType.SEQUENCE,
+           generator = "student_sequence"
+   )
+   private Long studentID;
    private String yearLevel;
-   private String course;
+   private Long courseID;
    private String section;
 
-   public int getStudentID() {
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+        super(email, password, userRole, firstName, lastName, gender, age, birthDate, homeAddress, contactNumber, civilStatus);
+        this.yearLevel = yearLevel;
+        this.courseID = courseID;
+        this.section = section;
+    }
+
+    public Long getStudentID() {
        return this.studentID;
    }
 
-   public void setStudentID(int studentID) {
+   public void setStudentID(Long studentID) {
        this.studentID = studentID;
    }
 
@@ -36,12 +50,12 @@ public class Student {
        this.yearLevel = yearLevel;
    }
 
-   public String getCourse() {
-       return this.course;
+   public Long getCourseID() {
+       return this.courseID;
    }
 
-   public void setCourse(String course) {
-       this.course = course;
+   public void setCourse(Long courseID) {
+       this.courseID = courseID;
    }
 
    public String getSection() {
