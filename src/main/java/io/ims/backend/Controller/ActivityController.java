@@ -29,7 +29,7 @@ public class ActivityController {
     }
 
     //GET SINGLE USER
-    @GetMapping(path = "/getone/{activityID}")
+    @GetMapping(path = "{activityID}")
     public Optional<Activity> getActivityByID(
             @PathVariable("activityID") Long activityID){
         return activityService.getActivityByID(activityID);
@@ -42,7 +42,7 @@ public class ActivityController {
     }
 
     //PUT USER
-    @PutMapping(path = "/update/{activityID}")
+    @PutMapping(path = "{activityID}")
     public void updateActivity(
             @PathVariable("activityID") Long activityID,
             @RequestParam(required = false) String activityName,
@@ -54,7 +54,7 @@ public class ActivityController {
     }
 
     //DELETE USER
-    @DeleteMapping(path = "/delete/{activityID}")
+    @DeleteMapping(path = "{activityID}")
     public void deleteActivity(
             @PathVariable("activityID") Long activityID){
         activityService.deleteActivity(activityID);
