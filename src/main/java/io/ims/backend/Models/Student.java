@@ -24,7 +24,7 @@ public class Student extends UserDetails{
    )
    private Long studentID;
    private String yearLevel;
-   private Integer courseID;
+   private Long courseID;
    private String section;
 
     public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Integer courseID, String section) {
@@ -50,11 +50,11 @@ public class Student extends UserDetails{
        this.yearLevel = yearLevel;
    }
 
-   public Integer getCourseID() {
+   public Long getCourseID() {
        return this.courseID;
    }
 
-   public void setCourse(Integer course) {
+   public void setCourse(Long courseID) {
        this.courseID = courseID;
    }
 
