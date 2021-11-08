@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails extends User {
+public class UserDetails{
   @Id
   @GeneratedValue
   private int detailsID;
