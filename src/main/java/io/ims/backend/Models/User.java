@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @SequenceGenerator(
