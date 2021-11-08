@@ -1,8 +1,6 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,19 +13,27 @@ import lombok.NoArgsConstructor;
 
 public class Subject {
     @Id
-    @GeneratedValue
-    public int subjectID;
+    @SequenceGenerator(
+            name = "subject_sequence",
+            sequenceName = "subject_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "subject_sequence"
+    )
+    public Integer subjectID;
     public String subjectName;
     public String subjectCode;
     public String units;
-    public int lectureHours;
-    public int labHours;
+    public Integer lectureHours;
+    public Integer labHours;
 
-    public int getSubjectID() {
+    public Integer getSubjectID() {
         return this.subjectID;
     }
 
-    public void setSubjectID(int subjectID) {
+    public void setSubjectID(Integer subjectID) {
         this.subjectID = subjectID;
     }
 
@@ -55,19 +61,19 @@ public class Subject {
         this.units = units;
     }
 
-    public int getLectureHours() {
+    public Integer getLectureHours() {
         return this.lectureHours;
     }
 
-    public void setLectureHours(int lectureHours) {
+    public void setLectureHours(Integer lectureHours) {
         this.lectureHours = lectureHours;
     }
 
-    public int getLabHours() {
+    public Integer getLabHours() {
         return this.labHours;
     }
 
-    public void setLabHours(int labHours) {
+    public void setLabHours(Integer labHours) {
         this.labHours = labHours;
     }
 
