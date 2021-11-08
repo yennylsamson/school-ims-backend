@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import io.ims.backend.Models.Student;
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer>{
+public interface StudentRepository extends JpaRepository<Student, Long>{
     
 }

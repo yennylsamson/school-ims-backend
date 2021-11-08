@@ -22,16 +22,22 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
-    private Integer userID;
+    private Long userID;
     private String email;
     private String password;
     private String userRole;
 
-    public Integer getUserID() {
+    public User(String email, String password, String userRole) {
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
+    public Long getUserID() {
         return this.userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 

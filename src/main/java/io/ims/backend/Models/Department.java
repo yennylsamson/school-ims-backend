@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class Department {
     @Id
     @SequenceGenerator(
-            name = "course_sequence",
-            sequenceName = "course_sequence",
+            name = "department_sequence",
+            sequenceName = "department_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "course_sequence"
+            generator = "department_sequence"
     )
     public Long departmentID;
     public String departmentName;
