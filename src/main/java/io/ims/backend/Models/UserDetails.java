@@ -96,5 +96,4 @@ public class UserDetails{
   public void setCivilStatus(String civilStatus) {
       this.civilStatus = civilStatus;
   }
-
 }

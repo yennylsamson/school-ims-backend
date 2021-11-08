@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import io.ims.backend.Models.Department;
 @Repository
-public interface DepartmentRepository extends JpaRepository<Department, Integer>{
+public interface DepartmentRepository extends JpaRepository<Department, Long>{
     
 }
