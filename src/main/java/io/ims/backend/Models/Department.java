@@ -25,6 +25,12 @@ public class Department {
     public String departmentName;
     public String departmentDean;
 
+    public Department (String departmentName, String departmentDean) {
+        this.departmentName = departmentName;
+        this.departmentDean = departmentDean;
+    }
+
+
     public Long getDepartmentID() {
         return this.departmentID;
     }
