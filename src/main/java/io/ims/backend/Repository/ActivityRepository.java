@@ -7,6 +7,6 @@ import io.ims.backend.Models.Activity;
 
 
 @Repository
-public interface ActivityRepository extends JpaRepository<Activity, Integer>{
+public interface ActivityRepository extends JpaRepository<Activity, Long>{
     
 }

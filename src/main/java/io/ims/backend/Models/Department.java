@@ -1,29 +1,35 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 public class Department {
     @Id
-    @GeneratedValue
-    public int departmentID;
+    @SequenceGenerator(
+            name = "course_sequence",
+            sequenceName = "course_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "course_sequence"
+    )
+    public Integer departmentID;
     public String departmentName;
     public String departmentDean;
 
-    public int getDepartmentID() {
+    public Integer getDepartmentID() {
         return this.departmentID;
     }
 
-    public void setDepartmentID(int departmentID) {
+    public void setDepartmentID(Integer departmentID) {
         this.departmentID = departmentID;
     }
 
