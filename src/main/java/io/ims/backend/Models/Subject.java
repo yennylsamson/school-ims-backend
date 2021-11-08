@@ -22,18 +22,26 @@ public class Subject {
             strategy = GenerationType.SEQUENCE,
             generator = "subject_sequence"
     )
-    public Integer subjectID;
+    public Long subjectID;
     public String subjectName;
     public String subjectCode;
     public String units;
     public Integer lectureHours;
     public Integer labHours;
 
-    public Integer getSubjectID() {
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
+        this.subjectName = subjectName;
+        this.subjectCode = subjectCode;
+        this.units = units;
+        this.lectureHours = lectureHours;
+        this.labHours = labHours;
+    }
+
+    public Long getSubjectID() {
         return this.subjectID;
     }
 
-    public void setSubjectID(Integer subjectID) {
+    public void setSubjectID(Long subjectID) {
         this.subjectID = subjectID;
     }
 
