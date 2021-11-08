@@ -1,8 +1,6 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,24 +10,34 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails{
+@PrimaryKeyJoinColumn(name = "detailsID")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UserDetails extends User{
   @Id
-  @GeneratedValue
-  private int detailsID;
+  @SequenceGenerator(
+          name = "details_sequence",
+          sequenceName = "details_sequence",
+          allocationSize = 1
+  )
+  @GeneratedValue(
+          strategy = GenerationType.SEQUENCE,
+          generator = "details_sequence"
+  )
+  private Integer detailsID;
   private String firstName;
   private String lastName;
   private String gender;
-  private int age;
+  private Integer age;
   private String birthDate;
   private String homeAddress;
-  private int contactNumber;
+  private Integer contactNumber;
   private String civilStatus;
 
-  public int getDetailsID() {
+  public Integer getDetailsID() {
       return this.detailsID;
   }
 
-  public void setDetailsID(int detailsID) {
+  public void setDetailsID(Integer detailsID) {
       this.detailsID = detailsID;
   }
 
@@ -57,11 +65,11 @@ public class UserDetails{
       this.gender = gender;
   }
 
-  public int getAge() {
+  public Integer getAge() {
       return this.age;
   }
 
-  public void setAge(int age) {
+  public void setAge(Integer age) {
       this.age = age;
   }
 
@@ -81,11 +89,11 @@ public class UserDetails{
       this.homeAddress = homeAddress;
   }
 
-  public int getContactNumber() {
+  public Integer getContactNumber() {
       return this.contactNumber;
   }
 
-  public void setContactNumber(int contactNumber) {
+  public void setContactNumber(Integer contactNumber) {
       this.contactNumber = contactNumber;
   }
 
