@@ -21,15 +21,15 @@ public class Department {
             strategy = GenerationType.SEQUENCE,
             generator = "course_sequence"
     )
-    public Integer departmentID;
+    public Long departmentID;
     public String departmentName;
     public String departmentDean;
 
-    public Integer getDepartmentID() {
+    public Long getDepartmentID() {
         return this.departmentID;
     }
 
-    public void setDepartmentID(Integer departmentID) {
+    public void setDepartmentID(Long departmentID) {
         this.departmentID = departmentID;
     }
 
