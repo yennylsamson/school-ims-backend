@@ -22,16 +22,23 @@ public class Student extends UserDetails{
            strategy = GenerationType.SEQUENCE,
            generator = "student_sequence"
    )
-   private Integer studentID;
+   private Long studentID;
    private String yearLevel;
    private Integer courseID;
    private String section;
 
-   public Integer getStudentID() {
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Integer courseID, String section) {
+        super(email, password, userRole, firstName, lastName, gender, age, birthDate, homeAddress, contactNumber, civilStatus);
+        this.yearLevel = yearLevel;
+        this.courseID = courseID;
+        this.section = section;
+    }
+
+    public Long getStudentID() {
        return this.studentID;
    }
 
-   public void setStudentID(Integer studentID) {
+   public void setStudentID(Long studentID) {
        this.studentID = studentID;
    }
 

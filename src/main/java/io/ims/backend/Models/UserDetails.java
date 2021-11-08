@@ -23,7 +23,7 @@ public class UserDetails extends User{
           strategy = GenerationType.SEQUENCE,
           generator = "details_sequence"
   )
-  private Integer detailsID;
+  private Long detailsID;
   private String firstName;
   private String lastName;
   private String gender;
@@ -33,11 +33,23 @@ public class UserDetails extends User{
   private Integer contactNumber;
   private String civilStatus;
 
-  public Integer getDetailsID() {
+    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
+        super(email, password, userRole);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+        this.birthDate = birthDate;
+        this.homeAddress = homeAddress;
+        this.contactNumber = contactNumber;
+        this.civilStatus = civilStatus;
+    }
+
+    public Long getDetailsID() {
       return this.detailsID;
   }
 
-  public void setDetailsID(Integer detailsID) {
+  public void setDetailsID(Long detailsID) {
       this.detailsID = detailsID;
   }
 

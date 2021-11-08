@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import io.ims.backend.Models.UserDetails;
 @Repository
-public interface UserDetailsRepository extends JpaRepository<UserDetails, Integer>{
+public interface UserDetailsRepository extends JpaRepository<UserDetails, Long>{
     
 }
