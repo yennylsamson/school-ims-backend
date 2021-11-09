@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -27,7 +29,7 @@ public class Student extends UserDetails{
    private Long courseID;
    private String section;
 
-    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, LocalDate birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
         super(email, password, userRole, firstName, lastName, gender, age, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
         this.courseID = courseID;

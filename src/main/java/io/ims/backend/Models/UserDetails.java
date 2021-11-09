@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,12 +31,12 @@ public class UserDetails extends User{
   private String lastName;
   private String gender;
   private Integer age;
-  private String birthDate;
+  private LocalDate birthDate;
   private String homeAddress;
   private Integer contactNumber;
   private String civilStatus;
 
-    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
+    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, LocalDate birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
         super(email, password, userRole);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,18 +81,18 @@ public class UserDetails extends User{
   }
 
   public Integer getAge() {
-      return this.age;
+      return Period.between(this.birthDate, LocalDate.now()).getYears();
   }
 
   public void setAge(Integer age) {
       this.age = age;
   }
 
-  public String getBirthDate() {
+  public LocalDate getBirthDate() {
       return this.birthDate;
   }
 
-  public void setBirthDate(String birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
       this.birthDate = birthDate;
   }
 
