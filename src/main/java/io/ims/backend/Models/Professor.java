@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "professorID")
 public class Professor extends UserDetails{
-    @Id
     @SequenceGenerator(
             name = "professor_sequence",
             sequenceName = "professor_sequence",
@@ -23,20 +22,11 @@ public class Professor extends UserDetails{
             strategy = GenerationType.SEQUENCE,
             generator = "professor_sequence"
     )
-    private Long professorID;
     private Long departmentID;
 
     public Professor(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, LocalDate birthDate, String homeAddress, Integer contactNumber, String civilStatus, Long departmentID) {
         super(email, password, userRole, firstName, lastName, gender, age, birthDate, homeAddress, contactNumber, civilStatus);
         this.departmentID = departmentID;
-    }
-
-    public Long getProfessorID() {
-        return professorID;
-    }
-
-    public void setProfessorID(Long professorID) {
-        this.professorID = professorID;
     }
 
     public Long getDepartmentID() {

@@ -32,16 +32,16 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public void deleteStudent(Long studentID) {
-        boolean exists = studentRepository.existsById(studentID);
+    public void deleteStudent(Long userID) {
+        boolean exists = studentRepository.existsById(userID);
         if (!exists) {
-            throw new IllegalStateException("student with id " + studentID + " does not exists");
+            throw new IllegalStateException("student with id " + userID + " does not exists");
         }
-        studentRepository.deleteById(studentID);
+        studentRepository.deleteById(userID);
     }
 
     @Transactional
-    public void updateStudent(Long studentID,
+    public void updateStudent(Long userID,
                               String email,
                               String password,
                               String userRole,
@@ -55,9 +55,9 @@ public class StudentService {
                               String yearLevel,
                               Long courseID,
                               String section) {
-        Student student = studentRepository.findById(studentID)
+        Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
-                        "student with id " + studentID + " does not exists"
+                        "student with id " + userID + " does not exists"
                 ));
 
         if (email != null &&

@@ -10,13 +10,12 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "detailsID")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserDetails extends User{
-  @Id
   @SequenceGenerator(
           name = "details_sequence",
           sequenceName = "details_sequence",
@@ -26,7 +25,7 @@ public class UserDetails extends User{
           strategy = GenerationType.SEQUENCE,
           generator = "details_sequence"
   )
-  private Long detailsID;
+
   private String firstName;
   private String lastName;
   private String gender;
@@ -47,14 +46,6 @@ public class UserDetails extends User{
         this.contactNumber = contactNumber;
         this.civilStatus = civilStatus;
     }
-
-    public Long getDetailsID() {
-      return this.detailsID;
-  }
-
-  public void setDetailsID(Long detailsID) {
-      this.detailsID = detailsID;
-  }
 
   public String getFirstName() {
       return this.firstName;
