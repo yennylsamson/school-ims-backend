@@ -1,37 +1,51 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
-@Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails{
-  @Id
-  @GeneratedValue
-  private int detailsID;
+@PrimaryKeyJoinColumn(name = "detailsID")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UserDetails extends User{
+  @SequenceGenerator(
+          name = "details_sequence",
+          sequenceName = "details_sequence",
+          allocationSize = 1
+  )
+  @GeneratedValue(
+          strategy = GenerationType.SEQUENCE,
+          generator = "details_sequence"
+  )
+
   private String firstName;
   private String lastName;
   private String gender;
-  private int age;
-  private String birthDate;
+  private Integer age;
+  private LocalDate birthDate;
   private String homeAddress;
-  private int contactNumber;
+  private Integer contactNumber;
   private String civilStatus;
 
-  public int getDetailsID() {
-      return this.detailsID;
-  }
-
-  public void setDetailsID(int detailsID) {
-      this.detailsID = detailsID;
-  }
+    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, LocalDate birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
+        super(email, password, userRole);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+        this.birthDate = birthDate;
+        this.homeAddress = homeAddress;
+        this.contactNumber = contactNumber;
+        this.civilStatus = civilStatus;
+    }
 
   public String getFirstName() {
       return this.firstName;
@@ -57,19 +71,19 @@ public class UserDetails{
       this.gender = gender;
   }
 
-  public int getAge() {
-      return this.age;
+  public Integer getAge() {
+      return Period.between(this.birthDate, LocalDate.now()).getYears();
   }
 
-  public void setAge(int age) {
+  public void setAge(Integer age) {
       this.age = age;
   }
 
-  public String getBirthDate() {
+  public LocalDate getBirthDate() {
       return this.birthDate;
   }
 
-  public void setBirthDate(String birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
       this.birthDate = birthDate;
   }
 
@@ -81,11 +95,11 @@ public class UserDetails{
       this.homeAddress = homeAddress;
   }
 
-  public int getContactNumber() {
+  public Integer getContactNumber() {
       return this.contactNumber;
   }
 
-  public void setContactNumber(int contactNumber) {
+  public void setContactNumber(Integer contactNumber) {
       this.contactNumber = contactNumber;
   }
 
@@ -96,5 +110,4 @@ public class UserDetails{
   public void setCivilStatus(String civilStatus) {
       this.civilStatus = civilStatus;
   }
-
 }
