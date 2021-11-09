@@ -50,7 +50,7 @@ public class StudentService {
                               String gender,
                               LocalDate birthDate,
                               String homeAddress,
-                              Integer contactNumber,
+                              String contactNumber,
                               String civilStatus,
                               String yearLevel,
                               Long courseID,

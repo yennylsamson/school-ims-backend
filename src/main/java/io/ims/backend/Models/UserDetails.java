@@ -3,7 +3,6 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -29,18 +28,16 @@ public class UserDetails extends User{
   private String firstName;
   private String lastName;
   private String gender;
-  private Integer age;
   private LocalDate birthDate;
   private String homeAddress;
-  private Integer contactNumber;
+  private String contactNumber;
   private String civilStatus;
 
-    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, LocalDate birthDate, String homeAddress, Integer contactNumber, String civilStatus) {
+    public UserDetails(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus) {
         super(email, password, userRole);
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.age = age;
         this.birthDate = birthDate;
         this.homeAddress = homeAddress;
         this.contactNumber = contactNumber;
@@ -75,10 +72,6 @@ public class UserDetails extends User{
       return Period.between(this.birthDate, LocalDate.now()).getYears();
   }
 
-  public void setAge(Integer age) {
-      this.age = age;
-  }
-
   public LocalDate getBirthDate() {
       return this.birthDate;
   }
@@ -95,11 +88,11 @@ public class UserDetails extends User{
       this.homeAddress = homeAddress;
   }
 
-  public Integer getContactNumber() {
+  public String getContactNumber() {
       return this.contactNumber;
   }
 
-  public void setContactNumber(Integer contactNumber) {
+  public void setContactNumber(String contactNumber) {
       this.contactNumber = contactNumber;
   }
 
