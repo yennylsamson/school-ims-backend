@@ -1,9 +1,7 @@
 package io.ims.backend.Services;
 
 import io.ims.backend.Models.Professor;
-import io.ims.backend.Models.Student;
 import io.ims.backend.Repository.ProfessorRepository;
-import io.ims.backend.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
