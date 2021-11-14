@@ -1,32 +1,37 @@
 package io.ims.backend.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
-@Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-   @Id
-   @GeneratedValue
-   private int studentID;
+@PrimaryKeyJoinColumn(name = "studentID")
+public class Student extends UserDetails{
+   @SequenceGenerator(
+           name = "student_sequence",
+           sequenceName = "student_sequence",
+           allocationSize = 1
+   )
+   @GeneratedValue(
+           strategy = GenerationType.SEQUENCE,
+           generator = "student_sequence"
+   )
    private String yearLevel;
-   private String course;
+   private Long courseID;
    private String section;
 
-   public int getStudentID() {
-       return this.studentID;
-   }
-
-   public void setStudentID(int studentID) {
-       this.studentID = studentID;
-   }
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+        super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
+        this.yearLevel = yearLevel;
+        this.courseID = courseID;
+        this.section = section;
+    }
 
    public String getYearLevel() {
        return this.yearLevel;
@@ -36,12 +41,12 @@ public class Student {
        this.yearLevel = yearLevel;
    }
 
-   public String getCourse() {
-       return this.course;
+   public Long getCourseID() {
+       return this.courseID;
    }
 
-   public void setCourse(String course) {
-       this.course = course;
+   public void setCourseID(Long courseID) {
+       this.courseID = courseID;
    }
 
    public String getSection() {
