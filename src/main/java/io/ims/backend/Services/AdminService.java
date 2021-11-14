@@ -12,11 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class AdminServices {
+public class AdminService {
     private final AdminRepository adminRepository;
 
     @Autowired
-    public AdminServices(AdminRepository adminRepository) {
+    public AdminService(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
 
