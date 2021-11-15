@@ -43,7 +43,8 @@ public class CourseService {
     public void updateCourse(Long courseID,
                              String courseName,
                              String courseCode,
-                             String chairperson) {
+                             String chairperson,
+                             Long departmentID) {
         Course course = courseRepository.findById(courseID)
                 .orElseThrow(() -> new IllegalStateException(
                         "course with id " + courseID + " does not exists"
@@ -65,6 +66,11 @@ public class CourseService {
                 chairperson.length() > 0 &&
                 !Objects.equals(course.getChairperson(), course)) {
             course.setChairperson(chairperson);
+        }
+
+        if (departmentID != null &&
+                !Objects.equals(course.getDepartmentID(), course)) {
+            course.setDepartmentID(departmentID);
         }
 
 
