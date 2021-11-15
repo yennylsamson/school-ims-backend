@@ -45,7 +45,8 @@ public class SubjectService {
                              String subjectCode,
                              String units,
                              Integer labHours,
-                             Integer lectureHours) {
+                             Integer lectureHours,
+                              Long departmentID) {
         Subject subject = subjectRepository.findById(subjectID)
                 .orElseThrow(() -> new IllegalStateException(
                         "subject with id " + subjectID + " does not exists"
@@ -73,6 +74,10 @@ public class SubjectService {
         if (lectureHours != null &&
                 !Objects.equals(subject.getLectureHours(), subject)) {
             subject.setLectureHours(lectureHours);
+        }
+        if (departmentID != null &&
+                !Objects.equals(subject.getDepartmentID(), subject)) {
+            subject.setDepartmentID(departmentID);
         }
     }
 }
