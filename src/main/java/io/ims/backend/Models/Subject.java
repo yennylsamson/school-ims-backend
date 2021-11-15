@@ -28,13 +28,15 @@ public class Subject {
     public String units;
     public Integer lectureHours;
     public Integer labHours;
+    public Long departmentID;
 
-    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.units = units;
         this.lectureHours = lectureHours;
         this.labHours = labHours;
+        this.departmentID = departmentID;
     }
 
     public Long getSubjectID() {
@@ -84,5 +86,14 @@ public class Subject {
     public void setLabHours(Integer labHours) {
         this.labHours = labHours;
     }
+
+    public Long getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Long departmentID) {
+        this.departmentID = departmentID;
+    }
+
 
 }
