@@ -46,8 +46,9 @@ public class CourseController {
             @PathVariable("courseID") Long courseID,
             @RequestParam(required = false) String courseName,
             @RequestParam(required = false) String courseCode,
-            @RequestParam(required = false) String chairperson){
-        courseService.updateCourse(courseID, courseName, courseCode, chairperson);
+            @RequestParam(required = false) String chairperson,
+            @RequestParam(required = false) Long departmentID){
+        courseService.updateCourse(courseID, courseName, courseCode, chairperson, departmentID);
     }
 
     //DELETE USER
