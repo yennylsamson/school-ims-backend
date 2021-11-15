@@ -18,8 +18,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findStudentByEmail(email);
+    }
+
+    public User verifyCredentials(String email, String password) {
+        User user = userRepository.findStudentByEmail(email);
+
+        System.out.println(password);
+        System.out.println(user.getPassword());
+        User loggedIn = new User();
+        if (password.equals(user.getPassword())) {
+            loggedIn.setUserID(user.getUserID());
+            loggedIn.setUserRole(user.getUserRole());
+        }
+
+        return loggedIn;
     }
 
 }
