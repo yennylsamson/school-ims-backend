@@ -40,6 +40,12 @@ public class Student extends UserDetails{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<Activity> activities;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+
+
     public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
