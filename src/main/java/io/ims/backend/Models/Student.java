@@ -2,8 +2,7 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "userID")
 public class Student extends UserDetails{
     @SequenceGenerator(
            name = "student_sequence",
@@ -38,11 +40,9 @@ public class Student extends UserDetails{
                    inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> joinedStudentSubjects;
 
-    @JsonManagedReference(value = "student-activity")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<Activity> activities;
 
-    @JsonBackReference(value = "course-student")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;

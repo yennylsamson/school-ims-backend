@@ -2,7 +2,9 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,9 @@ import java.util.List;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "courseID")
 public class Course {
     @Id
     @SequenceGenerator(
@@ -31,7 +36,6 @@ public class Course {
     public String chairperson;
     public Long departmentID;
 
-    @JsonManagedReference(value = "course-student")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Student> students;
 
