@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,44 +35,5 @@ public class Activity {
        this.totalScore = totalScore;
    }
 
-   public Long getActivityID() {
-       return this.activityID;
-   }
-
-   public void setActivityID(Long activityID) {
-       this.activityID = activityID;
-   }
-
-   public String getActivityName() {
-       return this.activityName;
-   }
-
-   public void setActivityName(String activityName) {
-       this.activityName = activityName;
-   }
-
-   public String getActivityType() {
-       return this.activityType;
-   }
-
-   public void setActivityType(String activityType) {
-       this.activityType = activityType;
-   }
-
-   public Integer getStudentScore() {
-       return this.studentScore;
-   }
-
-   public void setStudentScore(Integer studentScore) {
-       this.studentScore = studentScore;
-   }
-
-   public Integer getTotalScore() {
-       return this.totalScore;
-   }
-
-   public void setTotalScore(Integer totalScore) {
-       this.totalScore = totalScore;
-   }
 
 }

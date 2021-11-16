@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,11 +30,4 @@ public class Admin extends UserDetails {
         this.office = office;
     }
 
-    public String getOffice() {
-        return office;
-    }
-
-    public void setOffice(String office) {
-        this.office = office;
-    }
 }

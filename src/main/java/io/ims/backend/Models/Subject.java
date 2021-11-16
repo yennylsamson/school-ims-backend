@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -28,61 +31,20 @@ public class Subject {
     public String units;
     public Integer lectureHours;
     public Integer labHours;
+    public Long departmentID;
 
-    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
+    @ManyToMany(mappedBy = "joinedStudentSubjects")
+    private Set<Student> enrolledStudents;
+
+    @ManyToMany(mappedBy = "joinedProfessorSubjects")
+    private Set<Professor> teachingProfessors;
+
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.units = units;
         this.lectureHours = lectureHours;
         this.labHours = labHours;
+        this.departmentID = departmentID;
     }
-
-    public Long getSubjectID() {
-        return this.subjectID;
-    }
-
-    public void setSubjectID(Long subjectID) {
-        this.subjectID = subjectID;
-    }
-
-    public String getSubjectName() {
-        return this.subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public String getSubjectCode() {
-        return this.subjectCode;
-    }
-
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getUnits() {
-        return this.units;
-    }
-
-    public void setUnits(String units) {
-        this.units = units;
-    }
-
-    public Integer getLectureHours() {
-        return this.lectureHours;
-    }
-
-    public void setLectureHours(Integer lectureHours) {
-        this.lectureHours = lectureHours;
-    }
-
-    public Integer getLabHours() {
-        return this.labHours;
-    }
-
-    public void setLabHours(Integer labHours) {
-        this.labHours = labHours;
-    }
-
 }

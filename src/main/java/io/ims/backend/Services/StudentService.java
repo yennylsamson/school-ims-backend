@@ -1,7 +1,9 @@
 package io.ims.backend.Services;
 
 import io.ims.backend.Models.Student;
+import io.ims.backend.Models.Subject;
 import io.ims.backend.Repository.StudentRepository;
+import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.Optional;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, SubjectRepository subjectRepository) {
         this.studentRepository = studentRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     public List<Student> getStudents() {
@@ -135,6 +139,19 @@ public class StudentService {
             student.setSection(section);
         }
 
+    }
+
+    @Transactional
+    public void addNewSubject(Long userID, Long subjectID) {
+        Student student = studentRepository.findById(userID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + userID + " does not exists"
+                ));
+        Subject subject = subjectRepository.findById(subjectID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "subject with id " + subjectID + " does not exists"
+                ));
+        student.getJoinedStudentSubjects().add(subject);
     }
 
 }

@@ -4,6 +4,7 @@ import io.ims.backend.Models.Student;
 import io.ims.backend.Models.Subject;
 import io.ims.backend.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -40,6 +41,14 @@ public class StudentController {
         studentService.addNewStudent(student);
     }
 
+    //PUT SUBJECT
+    @PutMapping(path="subject/{studentID}")
+    public void addNewSubject(
+            @PathVariable("studentID") Long studentID,
+            @RequestParam Long subjectID){
+        studentService.addNewSubject(studentID, subjectID);
+    }
+
     //PUT USER
     @PutMapping(path = "{studentID}")
     public void updateSubject(
@@ -50,7 +59,8 @@ public class StudentController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String gender,
-            @RequestParam(required = false) LocalDate birthDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthDate,
             @RequestParam(required = false) String homeAddress,
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,

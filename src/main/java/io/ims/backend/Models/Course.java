@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,43 +26,12 @@ public class Course {
     public String courseName;
     public String courseCode;
     public String chairperson;
+    public Long departmentID;
 
-    public Course (String courseName, String courseCode, String chairperson) {
+    public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.chairperson = chairperson;
+        this.departmentID = departmentID;
     }
-
-    public Long getCourseID() {
-        return this.courseID;
-    }
-
-    public void setCourseID(Long courseID) {
-        this.courseID = courseID;
-    }
-
-    public String getCourseName() {
-        return this.courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseCode() {
-        return this.courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
-
-    public String getChairperson() {
-        return this.chairperson;
-    }
-
-    public void setChairperson(String chairperson) {
-        this.chairperson = chairperson;
-    }
-
 }

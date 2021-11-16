@@ -12,11 +12,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ProfessorServices {
+public class ProfessorService {
     private final ProfessorRepository professorRepository;
 
     @Autowired
-    public ProfessorServices(ProfessorRepository professorRepository) {
+    public ProfessorService(ProfessorRepository professorRepository) {
         this.professorRepository = professorRepository;
     }
 
