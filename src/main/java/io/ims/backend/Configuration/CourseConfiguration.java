@@ -18,7 +18,7 @@ public class CourseConfiguration {
                     "Computer Engineering",
                     "CpE",
                     "Engr. Niyo Kenn Jimenez",
-                    1L
+                    2L
             );
             Course civil = new Course(
                     1L,
