@@ -1,7 +1,9 @@
 package io.ims.backend.Services;
 
 import io.ims.backend.Models.Student;
+import io.ims.backend.Models.Subject;
 import io.ims.backend.Repository.StudentRepository;
+import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +12,30 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, SubjectRepository subjectRepository) {
         this.studentRepository = studentRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
+    }
+
+    public List<Subject> getStudentsSubjects(Long studentID) {
+        Student student = studentRepository.findById(studentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + studentID + " does not exists"
+                ));
+        return student.getJoinedStudentSubjects();
+
     }
 
     public Optional<Student> getStudentByID(Long studentID) {
@@ -53,7 +67,6 @@ public class StudentService {
                               String contactNumber,
                               String civilStatus,
                               String yearLevel,
-                              Long courseID,
                               String section) {
         Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
@@ -124,17 +137,25 @@ public class StudentService {
             student.setYearLevel(yearLevel);
         }
 
-        if (courseID != null &&
-                !Objects.equals(student.getCourseID(), student)) {
-            student.setCourseID(courseID);
-        }
-
         if (section != null &&
                 section.length() > 0 &&
                 !Objects.equals(student.getSection(), student)) {
             student.setSection(section);
         }
 
+    }
+
+    @Transactional
+    public void addNewSubject(Long userID, Long subjectID) {
+        Student student = studentRepository.findById(userID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + userID + " does not exists"
+                ));
+        Subject subject = subjectRepository.findById(subjectID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "subject with id " + subjectID + " does not exists"
+                ));
+        student.getJoinedStudentSubjects().add(subject);
     }
 
 }

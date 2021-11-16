@@ -4,11 +4,13 @@ import io.ims.backend.Models.Student;
 import io.ims.backend.Models.Subject;
 import io.ims.backend.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "students")
@@ -34,10 +36,24 @@ public class StudentController {
         return studentService.getStudentByID(studentID);
     }
 
+    //GET STUDENT SUBJECTS
+    @GetMapping(path = "{studentID}/subject")
+    public List<Subject> getStudentSubjectByID(
+            @PathVariable("studentID") Long studentID) {
+        return studentService.getStudentsSubjects(studentID);
+    }
     //POST USER
     @PostMapping()
     public void registerNewStudent(@RequestBody Student student){
         studentService.addNewStudent(student);
+    }
+
+    //PUT SUBJECT
+    @PutMapping(path="{studentID}/subject")
+    public void addNewSubject(
+            @PathVariable("studentID") Long studentID,
+            @RequestParam Long subjectID){
+        studentService.addNewSubject(studentID, subjectID);
     }
 
     //PUT USER
@@ -50,14 +66,14 @@ public class StudentController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String gender,
-            @RequestParam(required = false) LocalDate birthDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthDate,
             @RequestParam(required = false) String homeAddress,
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
             @RequestParam(required = false) String yearLevel,
-            @RequestParam(required = false) Long courseID,
             @RequestParam(required = false) String section){
-        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, courseID, section);
+        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section);
     }
 
     //DELETE USER
