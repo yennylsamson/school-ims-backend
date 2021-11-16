@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentService {
@@ -26,6 +27,15 @@ public class StudentService {
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
+    }
+
+    public List<Subject> getStudentsSubjects(Long studentID) {
+        Student student = studentRepository.findById(studentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + studentID + " does not exists"
+                ));
+        return student.getJoinedStudentSubjects();
+
     }
 
     public Optional<Student> getStudentByID(Long studentID) {
@@ -57,7 +67,6 @@ public class StudentService {
                               String contactNumber,
                               String civilStatus,
                               String yearLevel,
-                              Long courseID,
                               String section) {
         Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
@@ -128,11 +137,6 @@ public class StudentService {
             student.setYearLevel(yearLevel);
         }
 
-        if (courseID != null &&
-                !Objects.equals(student.getCourseID(), student)) {
-            student.setCourseID(courseID);
-        }
-
         if (section != null &&
                 section.length() > 0 &&
                 !Objects.equals(student.getSection(), student)) {
@@ -151,7 +155,7 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalStateException(
                         "subject with id " + subjectID + " does not exists"
                 ));
-        student.getJoinedSubjects().add(subject);
+        student.getJoinedStudentSubjects().add(subject);
     }
 
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,38 +31,6 @@ public class User {
     public User(String email, String password, String userRole) {
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
-    }
-
-    public Long getUserID() {
-        return this.userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserRole() {
-        return this.userRole;
-    }
-
-    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 

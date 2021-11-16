@@ -28,7 +28,6 @@ public class StudentConfiguration {
                     "09123456789",
                     "Married",
                     "4th Year",
-                    1L,
                     "CpE-401"
 
             );
@@ -44,7 +43,6 @@ public class StudentConfiguration {
                     "09123456789",
                     "Married",
                     "4th Year",
-                    2L,
                     "CpE-401"
             );
             studentRepository.saveAll(

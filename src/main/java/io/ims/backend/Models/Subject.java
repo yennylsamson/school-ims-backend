@@ -2,17 +2,24 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "subjectID")
 public class Subject {
     @Id
     @SequenceGenerator(
@@ -32,8 +39,11 @@ public class Subject {
     public Integer labHours;
     public Long departmentID;
 
-    @ManyToMany(mappedBy = "joinedSubjects")
-    private Set<Student> enrolledStudents;
+    @ManyToMany(targetEntity = Student.class, mappedBy = "joinedStudentSubjects")
+    private List<Student> enrolledStudents;
+
+    @ManyToMany(mappedBy = "joinedProfessorSubjects")
+    private Set<Professor> teachingProfessors;
 
     public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
@@ -42,69 +52,5 @@ public class Subject {
         this.lectureHours = lectureHours;
         this.labHours = labHours;
         this.departmentID = departmentID;
-    }
-
-    public Long getSubjectID() {
-        return this.subjectID;
-    }
-
-    public void setSubjectID(Long subjectID) {
-        this.subjectID = subjectID;
-    }
-
-    public String getSubjectName() {
-        return this.subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public String getSubjectCode() {
-        return this.subjectCode;
-    }
-
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getUnits() {
-        return this.units;
-    }
-
-    public void setUnits(String units) {
-        this.units = units;
-    }
-
-    public Integer getLectureHours() {
-        return this.lectureHours;
-    }
-
-    public void setLectureHours(Integer lectureHours) {
-        this.lectureHours = lectureHours;
-    }
-
-    public Integer getLabHours() {
-        return this.labHours;
-    }
-
-    public void setLabHours(Integer labHours) {
-        this.labHours = labHours;
-    }
-
-    public Long getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Long departmentID) {
-        this.departmentID = departmentID;
-    }
-
-    public Set<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
-    public void setEnrolledStudents(Set<Student> enrolledStudents) {
-        this.enrolledStudents = enrolledStudents;
     }
 }

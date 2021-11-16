@@ -2,74 +2,58 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Data
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "userID")
 public class Student extends UserDetails{
-   @SequenceGenerator(
+    @SequenceGenerator(
            name = "student_sequence",
            sequenceName = "student_sequence",
            allocationSize = 1
-   )
-   @GeneratedValue(
+    )
+    @GeneratedValue(
            strategy = GenerationType.SEQUENCE,
            generator = "student_sequence"
-   )
-   private String yearLevel;
-   private Long courseID;
-   private String section;
+    )
+    private String yearLevel;
+    private String section;
 
-   @ManyToMany
-           @JoinTable(
-                   name="student_subjects",
-                   joinColumns = @JoinColumn(name="student_id"),
-                   inverseJoinColumns = @JoinColumn(name = "subject_id"))
-   private Set<Subject> joinedSubjects;
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Subject.class)
+    @JoinTable(
+           name="student_subjects",
+           joinColumns = @JoinColumn(name="student_id"),
+           inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> joinedStudentSubjects;
 
-    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Activity> activities;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+
+
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
-        this.courseID = courseID;
         this.section = section;
     }
 
-   public String getYearLevel() {
-       return this.yearLevel;
-   }
 
-   public void setYearLevel(String yearLevel) {
-       this.yearLevel = yearLevel;
-   }
-
-   public Long getCourseID() {
-       return this.courseID;
-   }
-
-   public void setCourseID(Long courseID) {
-       this.courseID = courseID;
-   }
-
-   public String getSection() {
-       return this.section;
-   }
-
-   public void setSection(String section) {
-       this.section = section;
-   }
-
-    public Set<Subject> getJoinedSubjects() {
-        return joinedSubjects;
-    }
-
-    public void setJoinedSubjects(Set<Subject> joinedSubjects) {
-        this.joinedSubjects = joinedSubjects;
-    }
 }

@@ -3,12 +3,14 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
+@Data
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,63 +46,4 @@ public class UserDetails extends User{
         this.civilStatus = civilStatus;
     }
 
-  public String getFirstName() {
-      return this.firstName;
-  }
-
-  public void setFirstName(String firstName) {
-      this.firstName = firstName;
-  }
-
-  public String getLastName() {
-      return this.lastName;
-  }
-
-  public void setLastName(String lastName) {
-      this.lastName = lastName;
-  }
-
-  public String getGender() {
-      return this.gender;
-  }
-
-  public void setGender(String gender) {
-      this.gender = gender;
-  }
-
-  public Integer getAge() {
-      return Period.between(this.birthDate, LocalDate.now()).getYears();
-  }
-
-  public LocalDate getBirthDate() {
-      return this.birthDate;
-  }
-
-  public void setBirthDate(LocalDate birthDate) {
-      this.birthDate = birthDate;
-  }
-
-  public String getHomeAddress() {
-      return this.homeAddress;
-  }
-
-  public void setHomeAddress(String homeAddress) {
-      this.homeAddress = homeAddress;
-  }
-
-  public String getContactNumber() {
-      return this.contactNumber;
-  }
-
-  public void setContactNumber(String contactNumber) {
-      this.contactNumber = contactNumber;
-  }
-
-  public String getCivilStatus() {
-      return this.civilStatus;
-  }
-
-  public void setCivilStatus(String civilStatus) {
-      this.civilStatus = civilStatus;
-  }
 }
