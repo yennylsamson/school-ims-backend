@@ -3,8 +3,6 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +12,6 @@ import lombok.NoArgsConstructor;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "activityID")
 public class Activity {
    @Id
    @SequenceGenerator(
@@ -34,10 +29,12 @@ public class Activity {
    public Integer studentScore;
    public Integer totalScore;
 
+    @JsonBackReference(value = "student-activity")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @JsonBackReference(value = "professor-activity")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
     private Professor professor;
