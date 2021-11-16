@@ -14,20 +14,18 @@ public class SubjectConfiguration {
     CommandLineRunner subjectLineRunner(SubjectRepository subjectRepository){
         return args -> {
           Subject calculus = new Subject(
-                  1L,
                   "Calculus 1",
                   "CALC1",
                   "3",
                   1,
-                  null,
+                  0,
                   2L
           );
           Subject physicsLab = new Subject(
-                    2L,
                     "Physics Lab",
                     "PHYSICSL",
                     "1",
-                    null,
+                    0,
                     3,
                     2L
             );
