@@ -1,6 +1,7 @@
 package io.ims.backend.Services;
 
 import io.ims.backend.Models.Professor;
+import io.ims.backend.Models.Student;
 import io.ims.backend.Models.Subject;
 import io.ims.backend.Repository.ProfessorRepository;
 import io.ims.backend.Repository.SubjectRepository;
@@ -26,6 +27,15 @@ public class ProfessorService {
 
     public List<Professor> getProfessors() {
         return professorRepository.findAll();
+    }
+
+    public List<Subject> getProfessorsSubjects(Long professorID) {
+        Professor professor = professorRepository.findById(professorID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "professor with id " + professorID + " does not exists"
+                ));
+        return professor.getJoinedProfessorSubjects();
+
     }
 
     public Optional<Professor> getProfessorByID(Long professorID) {
