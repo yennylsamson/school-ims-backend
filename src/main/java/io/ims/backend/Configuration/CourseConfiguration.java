@@ -22,12 +22,12 @@ public class CourseConfiguration {
             );
             Course civil = new Course(
                     1L,
-                    "Computer Engineering",
-                    "CpE",
+                    "Civil Engineering",
+                    "Civil",
                     "Engr. Filipina De Guzman",
                     2L
             );
-            courseRepository.saveAll(List.of(cpe,civil));
+            courseRepository.saveAll(List.of(civil,cpe));
         };
     }
 }

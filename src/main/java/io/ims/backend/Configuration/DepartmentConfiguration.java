@@ -18,12 +18,13 @@ public class DepartmentConfiguration {
                 "School of Engineering and Architecture",
                     "Dr. Filipina I. De Guzman"
             );
+
             Department sba = new Department(
                     1L,
                     "School of Business and Accountancy",
                     "Dr. Maria S. Tanquilut"
             );
-            departmentRepository.saveAll(List.of(sea,sba));
+            departmentRepository.saveAll(List.of(sba,sea));
         };
     }
 }
