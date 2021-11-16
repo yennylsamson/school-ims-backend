@@ -41,8 +41,8 @@ public class ActivityController {
     @PostMapping()
     public void registerNewActivity(
             @RequestBody Activity activity,
-            @RequestParam(required = false) Long studentID,
-            @RequestParam(required = false) Long professorID){
+            @RequestParam Long studentID,
+            @RequestParam Long professorID){
         activityService.addNewActivity(activity, studentID, professorID);
     }
 

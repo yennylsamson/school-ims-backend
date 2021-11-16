@@ -2,6 +2,8 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +29,6 @@ public class Student extends UserDetails{
            generator = "student_sequence"
     )
     private String yearLevel;
-    private Long courseID;
     private String section;
 
     @ManyToMany
@@ -37,13 +38,20 @@ public class Student extends UserDetails{
                    inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> joinedStudentSubjects;
 
+    @JsonManagedReference(value = "student-activity")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<Activity> activities;
 
-    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+    @JsonBackReference(value = "course-student")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+
+
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
-        this.courseID = courseID;
         this.section = section;
     }
 
