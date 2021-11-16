@@ -33,7 +33,7 @@ public class Subject {
     public Long departmentID;
 
     @ManyToMany(mappedBy = "joinedSubjects")
-    Set<Student> enrolledStudents;
+    private Set<Student> enrolledStudents;
 
     public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
@@ -100,5 +100,11 @@ public class Subject {
         this.departmentID = departmentID;
     }
 
+    public Set<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
 
+    public void setEnrolledStudents(Set<Student> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
 }

@@ -32,7 +32,7 @@ public class Student extends UserDetails{
                    name="student_subjects",
                    joinColumns = @JoinColumn(name="student_id"),
                    inverseJoinColumns = @JoinColumn(name = "subject_id"))
-   Set<Subject> joinedSubjects;
+   private Set<Subject> joinedSubjects;
 
     public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
@@ -65,4 +65,11 @@ public class Student extends UserDetails{
        this.section = section;
    }
 
+    public Set<Subject> getJoinedSubjects() {
+        return joinedSubjects;
+    }
+
+    public void setJoinedSubjects(Set<Subject> joinedSubjects) {
+        this.joinedSubjects = joinedSubjects;
+    }
 }
