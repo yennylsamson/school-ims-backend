@@ -17,25 +17,28 @@ import java.util.Set;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
 public class Student extends UserDetails{
-   @SequenceGenerator(
+    @SequenceGenerator(
            name = "student_sequence",
            sequenceName = "student_sequence",
            allocationSize = 1
-   )
-   @GeneratedValue(
+    )
+    @GeneratedValue(
            strategy = GenerationType.SEQUENCE,
            generator = "student_sequence"
-   )
-   private String yearLevel;
-   private Long courseID;
-   private String section;
+    )
+    private String yearLevel;
+    private Long courseID;
+    private String section;
 
-   @ManyToMany
+    @ManyToMany
            @JoinTable(
                    name="student_subjects",
                    joinColumns = @JoinColumn(name="student_id"),
                    inverseJoinColumns = @JoinColumn(name = "subject_id"))
-   private Set<Subject> joinedStudentSubjects;
+    private Set<Subject> joinedStudentSubjects;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private List<Activity> activities;
 
     public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
