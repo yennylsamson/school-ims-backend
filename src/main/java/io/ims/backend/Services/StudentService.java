@@ -151,7 +151,7 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalStateException(
                         "subject with id " + subjectID + " does not exists"
                 ));
-        student.getJoinedSubjects().add(subject);
+        student.getJoinedStudentSubjects().add(subject);
     }
 
 }

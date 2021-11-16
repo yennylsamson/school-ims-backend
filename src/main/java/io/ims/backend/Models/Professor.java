@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "professorID")
@@ -24,16 +26,16 @@ public class Professor extends UserDetails{
     )
     private Long departmentID;
 
+    @ManyToMany
+    @JoinTable(
+            name="professor_subjects",
+            joinColumns = @JoinColumn(name="professor_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private Set<Subject> joinedProfessorSubjects;
+
     public Professor(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, Long departmentID) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.departmentID = departmentID;
     }
 
-    public Long getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Long departmentID) {
-        this.departmentID = departmentID;
-    }
 }
