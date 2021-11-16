@@ -65,10 +65,20 @@ public class ActivityService {
                               String activityName,
                               String activityType,
                               Integer studentScore,
-                              Integer totalScore) {
+                              Integer totalScore,
+                               Long studentID,
+                               Long professorID) {
         Activity activity = activityRepository.findById(activityID)
                 .orElseThrow(() -> new IllegalStateException(
                         "activity with id " + activityID + " does not exists"
+                ));
+        Student student = studentRepository.findById(studentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + studentID + " does not exists"
+                ));
+        Professor professor = professorRepository.findById(professorID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "professor with id " + professorID + " does not exists"
                 ));
 
         if (activityName != null &&
@@ -91,6 +101,16 @@ public class ActivityService {
         if (totalScore != null &&
                 !Objects.equals(activity.getTotalScore(), activity)) {
             activity.setTotalScore(totalScore);
+        }
+
+        if (studentID != null &&
+                !Objects.equals(activity.getStudent().getUserID(), activity)) {
+            activity.setStudent(student);
+        }
+
+        if (professorID != null &&
+                !Objects.equals(activity.getProfessor().getUserID(), activity)) {
+            activity.setProfessor(professor);
         }
     }
 

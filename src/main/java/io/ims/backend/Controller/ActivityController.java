@@ -53,9 +53,11 @@ public class ActivityController {
             @RequestParam(required = false) String activityName,
             @RequestParam(required = false) String activityType,
             @RequestParam(required = false) Integer studentScore,
-            @RequestParam(required = false) Integer totalScore
+            @RequestParam(required = false) Integer totalScore,
+            @RequestParam(required = false) Long studentID,
+            @RequestParam(required = false) Long professorID
     ){
-        activityService.updateActivity(activityID, activityName, activityType, studentScore, totalScore);
+        activityService.updateActivity(activityID, activityName, activityType, studentScore, totalScore, studentID, professorID);
     }
 
     //DELETE USER
