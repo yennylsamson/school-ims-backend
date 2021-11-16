@@ -37,6 +37,10 @@ public class Professor extends UserDetails{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
     private List<Activity> activities;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     public Professor(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, Long departmentID) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.departmentID = departmentID;

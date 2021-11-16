@@ -27,7 +27,6 @@ public class Student extends UserDetails{
            generator = "student_sequence"
     )
     private String yearLevel;
-    private Long courseID;
     private String section;
 
     @ManyToMany
@@ -46,10 +45,9 @@ public class Student extends UserDetails{
 
 
 
-    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
-        this.courseID = courseID;
         this.section = section;
     }
 

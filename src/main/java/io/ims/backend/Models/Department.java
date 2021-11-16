@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table
@@ -25,6 +27,9 @@ public class Department {
     public Long departmentID;
     public String departmentName;
     public String departmentDean;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    private List<Professor> professors;
 
     public Department (String departmentName, String departmentDean) {
         this.departmentName = departmentName;
