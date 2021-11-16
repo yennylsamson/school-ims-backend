@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "professorID")
@@ -37,19 +38,4 @@ public class Professor extends UserDetails{
         this.departmentID = departmentID;
     }
 
-    public Long getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Long departmentID) {
-        this.departmentID = departmentID;
-    }
-
-    public Set<Subject> getJoinedProfessorSubjects() {
-        return joinedProfessorSubjects;
-    }
-
-    public void setJoinedProfessorSubjects(Set<Subject> joinedProfessorSubjects) {
-        this.joinedProfessorSubjects = joinedProfessorSubjects;
-    }
 }

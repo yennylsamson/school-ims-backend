@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -45,77 +46,5 @@ public class Subject {
         this.lectureHours = lectureHours;
         this.labHours = labHours;
         this.departmentID = departmentID;
-    }
-
-    public Long getSubjectID() {
-        return this.subjectID;
-    }
-
-    public void setSubjectID(Long subjectID) {
-        this.subjectID = subjectID;
-    }
-
-    public String getSubjectName() {
-        return this.subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
-    }
-
-    public String getSubjectCode() {
-        return this.subjectCode;
-    }
-
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getUnits() {
-        return this.units;
-    }
-
-    public void setUnits(String units) {
-        this.units = units;
-    }
-
-    public Integer getLectureHours() {
-        return this.lectureHours;
-    }
-
-    public void setLectureHours(Integer lectureHours) {
-        this.lectureHours = lectureHours;
-    }
-
-    public Integer getLabHours() {
-        return this.labHours;
-    }
-
-    public void setLabHours(Integer labHours) {
-        this.labHours = labHours;
-    }
-
-    public Long getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Long departmentID) {
-        this.departmentID = departmentID;
-    }
-
-    public Set<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
-    public void setEnrolledStudents(Set<Student> enrolledStudents) {
-        this.enrolledStudents = enrolledStudents;
-    }
-
-    public Set<Professor> getTeachingProfessors() {
-        return teachingProfessors;
-    }
-
-    public void setTeachingProfessors(Set<Professor> teachingProfessors) {
-        this.teachingProfessors = teachingProfessors;
     }
 }

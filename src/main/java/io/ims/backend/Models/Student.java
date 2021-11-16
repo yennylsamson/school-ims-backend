@@ -3,6 +3,7 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Data
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,35 +44,5 @@ public class Student extends UserDetails{
         this.section = section;
     }
 
-   public String getYearLevel() {
-       return this.yearLevel;
-   }
 
-   public void setYearLevel(String yearLevel) {
-       this.yearLevel = yearLevel;
-   }
-
-   public Long getCourseID() {
-       return this.courseID;
-   }
-
-   public void setCourseID(Long courseID) {
-       this.courseID = courseID;
-   }
-
-   public String getSection() {
-       return this.section;
-   }
-
-   public void setSection(String section) {
-       this.section = section;
-   }
-
-    public Set<Subject> getJoinedStudentSubjects() {
-        return joinedStudentSubjects;
-    }
-
-    public void setJoinedStudentSubjects(Set<Subject> joinedStudentSubjects) {
-        this.joinedStudentSubjects = joinedStudentSubjects;
-    }
 }
