@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 import io.ims.backend.Models.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long>{
-    @Query("INSERT INTO student_subjects (student_id,subject_id) VALUES (?,?)")
-    Student addSubject(Long studentID, Long subjectID);
 }
