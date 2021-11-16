@@ -43,7 +43,7 @@ public class ActivityController {
             @RequestBody Activity activity,
             @RequestParam(required = false) Long studentID,
             @RequestParam(required = false) Long professorID){
-        activityService.addNewActivity(activity);
+        activityService.addNewActivity(activity, studentID, professorID);
     }
 
     //PUT USER
