@@ -57,7 +57,6 @@ public class StudentService {
                               String contactNumber,
                               String civilStatus,
                               String yearLevel,
-                              Long courseID,
                               String section) {
         Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
@@ -126,11 +125,6 @@ public class StudentService {
                 yearLevel.length() > 0 &&
                 !Objects.equals(student.getYearLevel(), student)) {
             student.setYearLevel(yearLevel);
-        }
-
-        if (courseID != null &&
-                !Objects.equals(student.getCourseID(), student)) {
-            student.setCourseID(courseID);
         }
 
         if (section != null &&

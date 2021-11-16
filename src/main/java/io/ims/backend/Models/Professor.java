@@ -1,5 +1,7 @@
 package io.ims.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,8 +36,14 @@ public class Professor extends UserDetails{
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> joinedProfessorSubjects;
 
+    @JsonManagedReference(value = "professor-activity")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
     private List<Activity> activities;
+
+    @JsonBackReference(value = "department-professor")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public Professor(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, Long departmentID) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);

@@ -2,9 +2,12 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -27,6 +30,10 @@ public class Course {
     public String courseCode;
     public String chairperson;
     public Long departmentID;
+
+    @JsonManagedReference(value = "course-student")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    private List<Student> students;
 
     public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
         this.courseName = courseName;

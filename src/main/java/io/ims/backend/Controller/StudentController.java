@@ -65,9 +65,8 @@ public class StudentController {
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
             @RequestParam(required = false) String yearLevel,
-            @RequestParam(required = false) Long courseID,
             @RequestParam(required = false) String section){
-        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, courseID, section);
+        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section);
     }
 
     //DELETE USER
