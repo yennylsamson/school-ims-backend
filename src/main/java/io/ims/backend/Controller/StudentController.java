@@ -41,6 +41,14 @@ public class StudentController {
         studentService.addNewStudent(student);
     }
 
+    //PUT SUBJECT
+    @PutMapping(path="subject/{studentID}")
+    public void addNewSubject(
+            @PathVariable("studentID") Long studentID,
+            @RequestParam Long subjectID){
+        studentService.addNewSubject(studentID, subjectID);
+    }
+
     //PUT USER
     @PutMapping(path = "{studentID}")
     public void updateSubject(
