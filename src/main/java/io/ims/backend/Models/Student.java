@@ -3,16 +3,17 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 @Entity
-@Data
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
 public class Student extends UserDetails{
-   @Id
    @SequenceGenerator(
            name = "student_sequence",
            sequenceName = "student_sequence",
@@ -22,25 +23,23 @@ public class Student extends UserDetails{
            strategy = GenerationType.SEQUENCE,
            generator = "student_sequence"
    )
-   private Long studentID;
    private String yearLevel;
    private Long courseID;
    private String section;
 
-    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, Integer age, String birthDate, String homeAddress, Integer contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
-        super(email, password, userRole, firstName, lastName, gender, age, birthDate, homeAddress, contactNumber, civilStatus);
+   @ManyToMany
+           @JoinTable(
+                   name="student_subjects",
+                   joinColumns = @JoinColumn(name="student_id"),
+                   inverseJoinColumns = @JoinColumn(name = "subject_id"))
+   private Set<Subject> joinedSubjects;
+
+    public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
+        super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
         this.yearLevel = yearLevel;
         this.courseID = courseID;
         this.section = section;
     }
-
-    public Long getStudentID() {
-       return this.studentID;
-   }
-
-   public void setStudentID(Long studentID) {
-       this.studentID = studentID;
-   }
 
    public String getYearLevel() {
        return this.yearLevel;
@@ -54,7 +53,7 @@ public class Student extends UserDetails{
        return this.courseID;
    }
 
-   public void setCourse(Long courseID) {
+   public void setCourseID(Long courseID) {
        this.courseID = courseID;
    }
 
@@ -66,4 +65,11 @@ public class Student extends UserDetails{
        this.section = section;
    }
 
+    public Set<Subject> getJoinedSubjects() {
+        return joinedSubjects;
+    }
+
+    public void setJoinedSubjects(Set<Subject> joinedSubjects) {
+        this.joinedSubjects = joinedSubjects;
+    }
 }

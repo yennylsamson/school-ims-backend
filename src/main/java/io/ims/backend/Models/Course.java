@@ -25,11 +25,13 @@ public class Course {
     public String courseName;
     public String courseCode;
     public String chairperson;
+    public Long departmentID;
 
-    public Course (String courseName, String courseCode, String chairperson) {
+    public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.chairperson = chairperson;
+        this.departmentID = departmentID;
     }
 
     public Long getCourseID() {
@@ -64,4 +66,11 @@ public class Course {
         this.chairperson = chairperson;
     }
 
+    public Long getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Long departmentID) {
+        this.departmentID = departmentID;
+    }
 }

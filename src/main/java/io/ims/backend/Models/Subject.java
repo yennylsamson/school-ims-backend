@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table
 @NoArgsConstructor
@@ -28,13 +30,18 @@ public class Subject {
     public String units;
     public Integer lectureHours;
     public Integer labHours;
+    public Long departmentID;
 
-    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
+    @ManyToMany(mappedBy = "joinedSubjects")
+    private Set<Student> enrolledStudents;
+
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.units = units;
         this.lectureHours = lectureHours;
         this.labHours = labHours;
+        this.departmentID = departmentID;
     }
 
     public Long getSubjectID() {
@@ -85,4 +92,19 @@ public class Subject {
         this.labHours = labHours;
     }
 
+    public Long getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Long departmentID) {
+        this.departmentID = departmentID;
+    }
+
+    public Set<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void setEnrolledStudents(Set<Student> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
 }
