@@ -48,8 +48,9 @@ public class SubjectController {
             @RequestParam(required = false) String subjectCode,
             @RequestParam(required = false) String units,
             @RequestParam(required = false) Integer labHours,
-            @RequestParam(required = false) Integer lectureHours){
-        subjectService.updateSubject(subjectID, subjectName,subjectCode, units, labHours, lectureHours);
+            @RequestParam(required = false) Integer lectureHours,
+            @RequestParam(required = false) Long departmentID){
+        subjectService.updateSubject(subjectID, subjectName,subjectCode, units, labHours, lectureHours, departmentID);
     }
 
     //DELETE USER
