@@ -32,8 +32,11 @@ public class Subject {
     public Integer labHours;
     public Long departmentID;
 
-    @ManyToMany(mappedBy = "joinedSubjects")
+    @ManyToMany(mappedBy = "joinedStudentSubjects")
     private Set<Student> enrolledStudents;
+
+    @ManyToMany(mappedBy = "joinedProfessorSubjects")
+    private Set<Professor> teachingProfessors;
 
     public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
         this.subjectName = subjectName;
@@ -106,5 +109,13 @@ public class Subject {
 
     public void setEnrolledStudents(Set<Student> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
+    }
+
+    public Set<Professor> getTeachingProfessors() {
+        return teachingProfessors;
+    }
+
+    public void setTeachingProfessors(Set<Professor> teachingProfessors) {
+        this.teachingProfessors = teachingProfessors;
     }
 }

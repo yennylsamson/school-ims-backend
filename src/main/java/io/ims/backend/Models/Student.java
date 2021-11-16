@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,7 +33,7 @@ public class Student extends UserDetails{
                    name="student_subjects",
                    joinColumns = @JoinColumn(name="student_id"),
                    inverseJoinColumns = @JoinColumn(name = "subject_id"))
-   private Set<Subject> joinedSubjects;
+   private Set<Subject> joinedStudentSubjects;
 
     public Student(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, String yearLevel, Long courseID, String section) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
@@ -65,11 +66,11 @@ public class Student extends UserDetails{
        this.section = section;
    }
 
-    public Set<Subject> getJoinedSubjects() {
-        return joinedSubjects;
+    public Set<Subject> getJoinedStudentSubjects() {
+        return joinedStudentSubjects;
     }
 
-    public void setJoinedSubjects(Set<Subject> joinedSubjects) {
-        this.joinedSubjects = joinedSubjects;
+    public void setJoinedStudentSubjects(Set<Subject> joinedStudentSubjects) {
+        this.joinedStudentSubjects = joinedStudentSubjects;
     }
 }
