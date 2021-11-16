@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class StudentConfiguration {
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
+    CommandLineRunner studentLineRunner(StudentRepository studentRepository) {
         return args -> {
             Student ailger = new Student(
                 "ailgermae@student.email.com",
