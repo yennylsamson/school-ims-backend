@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,8 +39,8 @@ public class Subject {
     public Integer labHours;
     public Long departmentID;
 
-    @ManyToMany(mappedBy = "joinedStudentSubjects")
-    private Set<Student> enrolledStudents;
+    @ManyToMany(targetEntity = Student.class, mappedBy = "joinedStudentSubjects")
+    private List<Student> enrolledStudents;
 
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
     private Set<Professor> teachingProfessors;

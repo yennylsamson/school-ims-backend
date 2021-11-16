@@ -29,7 +29,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Set<Subject> getStudentsSubjects(Long studentID) {
+    public List<Subject> getStudentsSubjects(Long studentID) {
         Student student = studentRepository.findById(studentID)
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + studentID + " does not exists"

@@ -39,7 +39,7 @@ public class Professor extends UserDetails{
             name="professor_subjects",
             joinColumns = @JoinColumn(name="professor_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
-    private Set<Subject> joinedProfessorSubjects;
+    private List<Subject> joinedProfessorSubjects;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
     private List<Activity> activities;

@@ -38,7 +38,7 @@ public class StudentController {
 
     //GET STUDENT SUBJECTS
     @GetMapping(path = "{studentID}/subject")
-    public Set<Subject> getStudentSubjectByID(
+    public List<Subject> getStudentSubjectByID(
             @PathVariable("studentID") Long studentID) {
         return studentService.getStudentsSubjects(studentID);
     }
