@@ -36,13 +36,11 @@ public class Activity {
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-   public Activity (String activityName, String activityType, Integer studentScore, Integer totalScore, Student student, Professor professor) {
+   public Activity (String activityName, String activityType, Integer studentScore, Integer totalScore) {
        this.activityName = activityName;
        this.activityType = activityType;
        this.studentScore = studentScore;
        this.totalScore = totalScore;
-       this.student = student;
-       this.professor = professor;
    }
 
 

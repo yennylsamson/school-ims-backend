@@ -5,6 +5,8 @@ import java.util.Optional;
 
 
 import io.ims.backend.Services.ActivityService;
+import io.ims.backend.Services.ProfessorService;
+import io.ims.backend.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +39,10 @@ public class ActivityController {
 
     //POST USER
     @PostMapping()
-    public void registerNewActivity(@RequestBody Activity activity){
+    public void registerNewActivity(
+            @RequestBody Activity activity,
+            @RequestParam(required = false) Long studentID,
+            @RequestParam(required = false) Long professorID){
         activityService.addNewActivity(activity);
     }
 
