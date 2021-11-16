@@ -3,6 +3,7 @@ package io.ims.backend.Controller;
 import io.ims.backend.Models.Professor;
 import io.ims.backend.Services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -49,7 +50,8 @@ public class ProfessorController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String gender,
-            @RequestParam(required = false) LocalDate birthDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthDate,
             @RequestParam(required = false) String homeAddress,
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
