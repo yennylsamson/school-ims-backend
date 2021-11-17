@@ -4,38 +4,31 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import io.ims.backend.Models.Activity;
 import io.ims.backend.Models.Student;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CustomStudentSerializer extends StdSerializer<Student> {
-
-    public CustomStudentSerializer() {
+public class CustomActivitySerializer extends StdSerializer<Activity> {
+    public CustomActivitySerializer() {
         this(null);
     }
 
-    public CustomStudentSerializer(Class<Student> t) {
+    public CustomActivitySerializer(Class<Activity> t) {
         super(t);
     }
 
 
     @Override
     public void serialize(
-            Student student,
+            Activity activity,
             JsonGenerator generator,
             SerializerProvider provider)
             throws IOException, JsonProcessingException {
 
-//        generator.writeStartObject();
-//        generator.writeNumberField("userID", student.getUserID());
-//        generator.writeEndObject();
+        activity.setStudent(null);
+        activity.setProfessor(null);
 
-        student.setJoinedStudentSubjects(null);
-        student.setActivities(null);
-        student.setCourse(null);
-
-        generator.writeObject(student);
+        generator.writeObject(activity);
     }
 }
