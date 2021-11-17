@@ -36,10 +36,12 @@ public class CustomStudentSerializer extends StdSerializer<Student> {
             generator.writeStringField("firstName", student.getFirstName());
             generator.writeStringField("lastName", student.getLastName());
             generator.writeStringField("gender", student.getGender());
-            generator.writeStringField("birthData", student.getBirthDate().toString());
+            generator.writeStringField("birthDate", student.getBirthDate().toString());
             generator.writeStringField("homeAddress", student.getHomeAddress());
             generator.writeStringField("contactNumber", student.getContactNumber());
             generator.writeStringField("civilStatus", student.getCivilStatus());
+            generator.writeStringField("yearLevel", student.getYearLevel());
+            generator.writeStringField("section", student.getSection());
             generator.writeFieldName("joinedStudentSubjects");
             generator.writeStartArray();
             for (Subject subject : student.getJoinedStudentSubjects()) {

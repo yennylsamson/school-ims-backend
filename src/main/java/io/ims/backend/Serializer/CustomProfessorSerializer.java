@@ -36,7 +36,7 @@ public class CustomProfessorSerializer extends StdSerializer<Professor> {
             generator.writeStringField("firstName", professor.getFirstName());
             generator.writeStringField("lastName", professor.getLastName());
             generator.writeStringField("gender", professor.getGender());
-            generator.writeStringField("birthData", professor.getBirthDate().toString());
+            generator.writeStringField("birthDate", professor.getBirthDate().toString());
             generator.writeStringField("homeAddress", professor.getHomeAddress());
             generator.writeStringField("contactNumber", professor.getContactNumber());
             generator.writeStringField("civilStatus", professor.getCivilStatus());
