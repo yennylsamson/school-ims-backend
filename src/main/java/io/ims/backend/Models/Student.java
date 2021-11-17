@@ -3,6 +3,8 @@ package io.ims.backend.Models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.ims.backend.Serializer.CustomStudentSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "userID")
+@JsonSerialize(using = CustomStudentSerializer.class)
 public class Student extends UserDetails{
     @SequenceGenerator(
            name = "student_sequence",

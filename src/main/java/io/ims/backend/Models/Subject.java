@@ -5,6 +5,8 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.ims.backend.Serializer.CustomSubjectSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "subjectID")
+@JsonSerialize(using = CustomSubjectSerializer.class)
 public class Subject {
     @Id
     @SequenceGenerator(
@@ -42,7 +42,7 @@ public class Subject {
     private List<Student> enrolledStudents;
 
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
-    private Set<Professor> teachingProfessors;
+    private List<Professor> teachingProfessors;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @ComponentScan("io.ims.backend.*")
@@ -37,7 +38,21 @@ public class ApplicationConfiguration {
     @Bean
     CommandLineRunner departmentLineRunner(DepartmentRepository departmentRepository){
         return args -> {
-
+            //ADMIN
+            Admin admin = new Admin(
+                    "admin@admin.email.com",
+                    "adminpass",
+                    "admin",
+                    "Pekamasanting",
+                    "Malagungdili",
+                    "Male",
+                    LocalDate.of(2000, Month.JANUARY,1),
+                    "Planet One Piece",
+                    "09123456789",
+                    "Single",
+                    "Admin Office"
+            );
+            adminRepository.saveAll(List.of(admin));
             //DEPT
             Department sea = new Department(
                     "School of Engineering and Architecture",
@@ -48,7 +63,7 @@ public class ApplicationConfiguration {
                     "School of Business and Accountancy",
                     "Dr. Maria S. Tanquilut"
             );
-            departmentRepository.saveAll(List.of(sba,sea));
+            departmentRepository.saveAll(List.of(sea,sba));
 
             //COURSE
             Course CPE = new Course(
@@ -108,8 +123,14 @@ public class ApplicationConfiguration {
                     "09123456789",
                     "Single"
             );
+            List<Subject> subjects = new ArrayList<Subject>();
+            subjects.add(calculus);
+            subjects.add(physicsLab);
+
             niyo.setDepartment(SEA);
             mitra.setDepartment(SEA);
+            niyo.setJoinedProfessorSubjects(subjects);
+            mitra.setJoinedProfessorSubjects(subjects);
             professorRepository.saveAll(List.of(niyo, mitra));
 
             Student ailger = new Student(
@@ -144,23 +165,11 @@ public class ApplicationConfiguration {
 
             ailger.setCourse(CPE);
             glenn.setCourse(CPE);
+            ailger.setJoinedStudentSubjects(subjects);
+            glenn.setJoinedStudentSubjects(subjects);
             studentRepository.saveAll(
                     List.of(ailger, glenn)
             );
-            Admin admin = new Admin(
-                    "admin@admin.email.com",
-                    "adminpass",
-                    "admin",
-                    "Pekamasanting",
-                    "Malagungdili",
-                    "Male",
-                    LocalDate.of(2000, Month.JANUARY,1),
-                    "Planet One Piece",
-                    "09123456789",
-                    "Single",
-                    "Admin Office"
-            );
-            adminRepository.saveAll(List.of(admin));
 
             Activity activity1 = new Activity(
                     "Activity 1",
