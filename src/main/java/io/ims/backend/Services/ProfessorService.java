@@ -1,8 +1,9 @@
 package io.ims.backend.Services;
 
+import io.ims.backend.Models.Department;
 import io.ims.backend.Models.Professor;
-import io.ims.backend.Models.Student;
 import io.ims.backend.Models.Subject;
+import io.ims.backend.Repository.DepartmentRepository;
 import io.ims.backend.Repository.ProfessorRepository;
 import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class ProfessorService {
     private final ProfessorRepository professorRepository;
     private final SubjectRepository subjectRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public ProfessorService(ProfessorRepository professorRepository, SubjectRepository subjectRepository) {
+    public ProfessorService(ProfessorRepository professorRepository, SubjectRepository subjectRepository, DepartmentRepository departmentRepository) {
         this.professorRepository = professorRepository;
         this.subjectRepository = subjectRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     public List<Professor> getProfessors() {
@@ -42,7 +45,12 @@ public class ProfessorService {
         return professorRepository.findById(professorID);
     }
 
-    public void addNewProfessor(Professor professor) {
+    public void addNewProfessor(Professor professor, Long departmentID) {
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
+                ));
+        professor.setDepartment(department);
         professorRepository.save(professor);
     }
 
@@ -70,6 +78,11 @@ public class ProfessorService {
         Professor professor = professorRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
                         "professor with id " + userID + " does not exists"
+                ));
+
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
                 ));
 
         if (email != null &&
@@ -131,8 +144,8 @@ public class ProfessorService {
         }
 
         if (departmentID != null &&
-                !Objects.equals(professor.getDepartmentID(), professor)) {
-            professor.setDepartmentID(departmentID);
+                !Objects.equals(professor.getDepartment().getDepartmentID(), professor)) {
+            professor.setDepartment(department);
         }
 
     }
