@@ -82,11 +82,6 @@ public class StudentService {
                         "student with id " + userID + " does not exists"
                 ));
 
-        Course course = courseRepository.findById(courseID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "course with id " + courseID + " does not exists"
-                ));
-
         if (email != null &&
                 email.length() > 0 &&
                 !Objects.equals(student.getEmail(), student)) {
@@ -159,6 +154,10 @@ public class StudentService {
 
         if (courseID != null &&
                 !Objects.equals(student.getCourse().getCourseID(), student)) {
+            Course course = courseRepository.findById(courseID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "course with id " + courseID + " does not exists"
+                    ));
             student.setCourse(course);
         }
 

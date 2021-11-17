@@ -61,11 +61,6 @@ public class SubjectService {
                         "subject with id " + subjectID + " does not exists"
                 ));
 
-        Department department = departmentRepository.findById(departmentID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "department with id " + departmentID + " does not exists"
-                ));
-
         if (subjectName != null &&
                 subjectName.length() > 0 &&
                 !Objects.equals(subject.getSubjectName(), subject)) {
@@ -91,6 +86,10 @@ public class SubjectService {
         }
         if (departmentID != null &&
                 !Objects.equals(subject.getDepartment().getDepartmentID(), subject)) {
+            Department department = departmentRepository.findById(departmentID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "department with id " + departmentID + " does not exists"
+                    ));
             subject.setDepartment(department);
         }
 

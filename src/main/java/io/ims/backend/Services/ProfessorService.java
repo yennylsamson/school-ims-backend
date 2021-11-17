@@ -80,11 +80,6 @@ public class ProfessorService {
                         "professor with id " + userID + " does not exists"
                 ));
 
-        Department department = departmentRepository.findById(departmentID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "department with id " + departmentID + " does not exists"
-                ));
-
         if (email != null &&
                 email.length() > 0 &&
                 !Objects.equals(professor.getEmail(), professor)) {
@@ -145,6 +140,10 @@ public class ProfessorService {
 
         if (departmentID != null &&
                 !Objects.equals(professor.getDepartment().getDepartmentID(), professor)) {
+            Department department = departmentRepository.findById(departmentID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "department with id " + departmentID + " does not exists"
+                    ));
             professor.setDepartment(department);
         }
 
