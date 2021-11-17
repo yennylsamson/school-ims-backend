@@ -34,7 +34,6 @@ public class Course {
     public String courseName;
     public String courseCode;
     public String chairperson;
-    public Long departmentID;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Student> students;
@@ -43,10 +42,9 @@ public class Course {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
+    public Course (String courseName, String courseCode, String chairperson) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.chairperson = chairperson;
-        this.departmentID = departmentID;
     }
 }
