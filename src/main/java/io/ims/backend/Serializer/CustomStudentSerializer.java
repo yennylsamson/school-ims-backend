@@ -64,6 +64,8 @@ public class CustomStudentSerializer extends StdSerializer<Student> {
                 generator.writeStringField("activityType", activity.getActivityType());
                 generator.writeNumberField("studentScore", activity.getStudentScore());
                 generator.writeNumberField("totalScore", activity.getTotalScore());
+                generator.writeStringField("studentName", activity.getStudent().getFirstName() + " " + activity.getStudent().getLastName());
+                generator.writeStringField("professorName", activity.getProfessor().getFirstName() + " " + activity.getProfessor().getLastName());
                 generator.writeEndObject();
             }
             generator.writeEndArray();
