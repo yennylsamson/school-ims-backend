@@ -44,8 +44,10 @@ public class ProfessorController {
 
     //POST USER
     @PostMapping()
-    public void registerNewProfessor(@RequestBody Professor professor){
-        professorService.addNewProfessor(professor);
+    public void registerNewProfessor(
+            @RequestBody Professor professor,
+            @RequestParam(required = false) Long departmentID) {
+        professorService.addNewProfessor(professor, departmentID);
     }
 
     //PUT SUBJECT
