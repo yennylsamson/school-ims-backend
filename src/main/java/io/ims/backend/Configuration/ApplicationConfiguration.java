@@ -37,7 +37,21 @@ public class ApplicationConfiguration {
     @Bean
     CommandLineRunner departmentLineRunner(DepartmentRepository departmentRepository){
         return args -> {
-
+            //ADMIN
+            Admin admin = new Admin(
+                    "admin@admin.email.com",
+                    "adminpass",
+                    "admin",
+                    "Pekamasanting",
+                    "Malagungdili",
+                    "Male",
+                    LocalDate.of(2000, Month.JANUARY,1),
+                    "Planet One Piece",
+                    "09123456789",
+                    "Single",
+                    "Admin Office"
+            );
+            adminRepository.saveAll(List.of(admin));
             //DEPT
             Department sea = new Department(
                     "School of Engineering and Architecture",
@@ -147,20 +161,6 @@ public class ApplicationConfiguration {
             studentRepository.saveAll(
                     List.of(ailger, glenn)
             );
-            Admin admin = new Admin(
-                    "admin@admin.email.com",
-                    "adminpass",
-                    "admin",
-                    "Pekamasanting",
-                    "Malagungdili",
-                    "Male",
-                    LocalDate.of(2000, Month.JANUARY,1),
-                    "Planet One Piece",
-                    "09123456789",
-                    "Single",
-                    "Admin Office"
-            );
-            adminRepository.saveAll(List.of(admin));
 
             Activity activity1 = new Activity(
                     "Activity 1",
