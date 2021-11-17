@@ -32,7 +32,6 @@ public class Professor extends UserDetails{
             strategy = GenerationType.SEQUENCE,
             generator = "professor_sequence"
     )
-    private Long departmentID;
 
     @ManyToMany
     @JoinTable(
@@ -50,7 +49,6 @@ public class Professor extends UserDetails{
 
     public Professor(String email, String password, String userRole, String firstName, String lastName, String gender, LocalDate birthDate, String homeAddress, String contactNumber, String civilStatus, Long departmentID) {
         super(email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus);
-        this.departmentID = departmentID;
     }
 
 }
