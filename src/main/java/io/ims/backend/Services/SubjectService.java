@@ -1,6 +1,8 @@
 package io.ims.backend.Services;
 
+import io.ims.backend.Models.Department;
 import io.ims.backend.Models.Subject;
+import io.ims.backend.Repository.DepartmentRepository;
 import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class SubjectService {
     private final SubjectRepository subjectRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository) {
+    public SubjectService(SubjectRepository subjectRepository, DepartmentRepository departmentRepository) {
         this.subjectRepository = subjectRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     public List<Subject> getSubjects() {
@@ -27,7 +31,12 @@ public class SubjectService {
         return subjectRepository.findById(subjectID);
     }
 
-    public void addNewSubject(Subject subject) {
+    public void addNewSubject(Subject subject, Long departmentID) {
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
+                ));
+        subject.setDepartment(department);
         subjectRepository.save(subject);
     }
 
@@ -76,8 +85,12 @@ public class SubjectService {
             subject.setLectureHours(lectureHours);
         }
         if (departmentID != null &&
-                !Objects.equals(subject.getDepartmentID(), subject)) {
-            subject.setDepartmentID(departmentID);
+                !Objects.equals(subject.getDepartment().getDepartmentID(), subject)) {
+            Department department = departmentRepository.findById(departmentID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "department with id " + departmentID + " does not exists"
+                    ));
+            subject.setDepartment(department);
         }
 
     }

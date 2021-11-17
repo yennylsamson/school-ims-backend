@@ -5,6 +5,8 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.ims.backend.Serializer.CustomSubjectSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "subjectID")
+@JsonSerialize(using = CustomSubjectSerializer.class)
 public class Subject {
     @Id
     @SequenceGenerator(
@@ -37,20 +37,22 @@ public class Subject {
     public String units;
     public Integer lectureHours;
     public Integer labHours;
-    public Long departmentID;
 
     @ManyToMany(targetEntity = Student.class, mappedBy = "joinedStudentSubjects")
     private List<Student> enrolledStudents;
 
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
-    private Set<Professor> teachingProfessors;
+    private List<Professor> teachingProfessors;
 
-    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.units = units;
         this.lectureHours = lectureHours;
         this.labHours = labHours;
-        this.departmentID = departmentID;
     }
 }

@@ -60,7 +60,7 @@ public class StudentController {
 
     //PUT USER
     @PutMapping(path = "{studentID}")
-    public void updateSubject(
+    public void updateStudent(
             @PathVariable("studentID") Long studentID,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password,
@@ -81,7 +81,7 @@ public class StudentController {
 
     //DELETE USER
     @DeleteMapping(path = "{studentID}")
-    public void deleteSubject(
+    public void deleteStudent(
             @PathVariable("studentID") Long studentID){
         studentService.deleteStudent(studentID);
     }

@@ -59,11 +59,6 @@ public class CourseService {
                         "course with id " + courseID + " does not exists"
                 ));
 
-        Department department = departmentRepository.findById(departmentID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "department with id " + departmentID + " does not exists"
-                ));
-
         if (courseName != null &&
                 courseName.length() > 0 &&
                 !Objects.equals(course.getCourseName(), course)) {
@@ -84,6 +79,10 @@ public class CourseService {
 
         if (departmentID != null &&
                 !Objects.equals(course.getDepartment().getDepartmentID(), course)) {
+            Department department = departmentRepository.findById(departmentID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "department with id " + departmentID + " does not exists"
+                    ));
             course.setDepartment(department);
         }
 

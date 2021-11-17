@@ -5,6 +5,8 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.ims.backend.Serializer.CustomDepartmentSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +18,7 @@ import java.util.List;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "departmentID")
+@JsonSerialize(using = CustomDepartmentSerializer.class)
 public class Department {
     @Id
     @SequenceGenerator(
@@ -39,6 +39,9 @@ public class Department {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<Course> courses;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    private List<Subject> subjects;
 
     public Department (String departmentName, String departmentDean) {
         this.departmentName = departmentName;

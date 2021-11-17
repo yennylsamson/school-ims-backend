@@ -80,14 +80,6 @@ public class ActivityService {
                 .orElseThrow(() -> new IllegalStateException(
                         "activity with id " + activityID + " does not exists"
                 ));
-        Student student = studentRepository.findById(studentID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "student with id " + studentID + " does not exists"
-                ));
-        Professor professor = professorRepository.findById(professorID)
-                .orElseThrow(() -> new IllegalStateException(
-                        "professor with id " + professorID + " does not exists"
-                ));
 
         if (activityName != null &&
                 activityName.length() > 0 &&
@@ -113,11 +105,19 @@ public class ActivityService {
 
         if (studentID != null &&
                 !Objects.equals(activity.getStudent().getUserID(), activity)) {
+            Student student = studentRepository.findById(studentID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "student with id " + studentID + " does not exists"
+                    ));
             activity.setStudent(student);
         }
 
         if (professorID != null &&
                 !Objects.equals(activity.getProfessor().getUserID(), activity)) {
+            Professor professor = professorRepository.findById(professorID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "professor with id " + professorID + " does not exists"
+                    ));
             activity.setProfessor(professor);
         }
     }
