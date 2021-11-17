@@ -44,8 +44,10 @@ public class StudentController {
     }
     //POST USER
     @PostMapping()
-    public void registerNewStudent(@RequestBody Student student){
-        studentService.addNewStudent(student);
+    public void registerNewStudent(
+            @RequestBody Student student,
+            @RequestParam Long courseID){
+        studentService.addNewStudent(student, courseID);
     }
 
     //PUT SUBJECT
@@ -72,8 +74,9 @@ public class StudentController {
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
             @RequestParam(required = false) String yearLevel,
-            @RequestParam(required = false) String section){
-        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section);
+            @RequestParam(required = false) String section,
+            @RequestParam(required = false) Long courseID){
+        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section, courseID);
     }
 
     //DELETE USER
