@@ -39,6 +39,10 @@ public class Course {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Student> students;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
         this.courseName = courseName;
         this.courseCode = courseCode;
