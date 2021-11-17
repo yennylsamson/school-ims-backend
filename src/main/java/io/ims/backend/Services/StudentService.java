@@ -1,7 +1,9 @@
 package io.ims.backend.Services;
 
+import io.ims.backend.Models.Course;
 import io.ims.backend.Models.Student;
 import io.ims.backend.Models.Subject;
+import io.ims.backend.Repository.CourseRepository;
 import io.ims.backend.Repository.StudentRepository;
 import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +14,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, SubjectRepository subjectRepository) {
+    public StudentService(StudentRepository studentRepository, SubjectRepository subjectRepository, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
         this.subjectRepository = subjectRepository;
+        this.courseRepository = courseRepository;
     }
 
     public List<Student> getStudents() {
@@ -42,7 +45,12 @@ public class StudentService {
         return studentRepository.findById(studentID);
     }
 
-    public void addNewStudent(Student student) {
+    public void addNewStudent(Student student, Long courseID) {
+        Course course = courseRepository.findById(courseID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "course with id " + courseID + " does not exists"
+                ));
+        student.setCourse(course);
         studentRepository.save(student);
     }
 
@@ -67,10 +75,16 @@ public class StudentService {
                               String contactNumber,
                               String civilStatus,
                               String yearLevel,
-                              String section) {
+                              String section,
+                              Long courseID) {
         Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + userID + " does not exists"
+                ));
+
+        Course course = courseRepository.findById(courseID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "course with id " + courseID + " does not exists"
                 ));
 
         if (email != null &&
@@ -141,6 +155,11 @@ public class StudentService {
                 section.length() > 0 &&
                 !Objects.equals(student.getSection(), student)) {
             student.setSection(section);
+        }
+
+        if (courseID != null &&
+                !Objects.equals(student.getCourse().getCourseID(), student)) {
+            student.setCourse(course);
         }
 
     }
