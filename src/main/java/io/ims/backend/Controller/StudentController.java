@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "students")
@@ -35,14 +36,22 @@ public class StudentController {
         return studentService.getStudentByID(studentID);
     }
 
+    //GET STUDENT SUBJECTS
+    @GetMapping(path = "{studentID}/subject")
+    public List<Subject> getStudentSubjectByID(
+            @PathVariable("studentID") Long studentID) {
+        return studentService.getStudentsSubjects(studentID);
+    }
     //POST USER
     @PostMapping()
-    public void registerNewStudent(@RequestBody Student student){
-        studentService.addNewStudent(student);
+    public void registerNewStudent(
+            @RequestBody Student student,
+            @RequestParam Long courseID){
+        studentService.addNewStudent(student, courseID);
     }
 
     //PUT SUBJECT
-    @PutMapping(path="subject/{studentID}")
+    @PutMapping(path="{studentID}/subject")
     public void addNewSubject(
             @PathVariable("studentID") Long studentID,
             @RequestParam Long subjectID){
@@ -65,8 +74,9 @@ public class StudentController {
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
             @RequestParam(required = false) String yearLevel,
-            @RequestParam(required = false) String section){
-        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section);
+            @RequestParam(required = false) String section,
+            @RequestParam(required = false) Long courseID){
+        studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section, courseID);
     }
 
     //DELETE USER

@@ -37,6 +37,18 @@ public class ActivityController {
         return activityService.getActivityByID(activityID);
     }
 
+    @GetMapping(path = "/student/{studentID}")
+    public List<Activity> getActivityByStudentID(
+            @PathVariable("studentID") Long studentID){
+        return activityService.getActivityByStudentID(studentID);
+    }
+
+    @GetMapping(path = "/professor/{professorID}")
+    public List<Activity> getActivityByProfessorID(
+            @PathVariable("professorID") Long professorID){
+        return activityService.getActivityByProfessorID(professorID);
+    }
+
     //POST USER
     @PostMapping()
     public void registerNewActivity(

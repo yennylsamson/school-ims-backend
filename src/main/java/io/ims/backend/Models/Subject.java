@@ -2,10 +2,14 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,7 +17,9 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "subjectID")
 public class Subject {
     @Id
     @SequenceGenerator(
@@ -33,8 +39,8 @@ public class Subject {
     public Integer labHours;
     public Long departmentID;
 
-    @ManyToMany(mappedBy = "joinedStudentSubjects")
-    private Set<Student> enrolledStudents;
+    @ManyToMany(targetEntity = Student.class, mappedBy = "joinedStudentSubjects")
+    private List<Student> enrolledStudents;
 
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
     private Set<Professor> teachingProfessors;

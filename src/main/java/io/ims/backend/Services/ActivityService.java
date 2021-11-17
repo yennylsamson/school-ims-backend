@@ -38,6 +38,14 @@ public class ActivityService {
         return activityRepository.findById(activityID);
     }
 
+    public List<Activity> getActivityByProfessorID(Long professorID) {
+        return activityRepository.findActivityByProfessorID(professorID);
+    }
+
+    public List<Activity> getActivityByStudentID(Long studentID) {
+        return activityRepository.findActivityByStudentID(studentID);
+    }
+
     public void addNewActivity(Activity activity, Long studentID, Long professorID) {
         Student student = studentRepository.findById(studentID)
                 .orElseThrow(() -> new IllegalStateException(
