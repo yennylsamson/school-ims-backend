@@ -36,8 +36,10 @@ public class SubjectController {
 
     //POST USER
     @PostMapping()
-    public void registerNewSubject(@RequestBody Subject subject){
-        subjectService.addNewSubject(subject);
+    public void registerNewSubject(
+            @RequestBody Subject subject,
+            @RequestParam Long departmentID){
+        subjectService.addNewSubject(subject, departmentID);
     }
 
     //PUT USER

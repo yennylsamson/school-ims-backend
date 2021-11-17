@@ -40,6 +40,9 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<Course> courses;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    private List<Subject> subjects;
+
     public Department (String departmentName, String departmentDean) {
         this.departmentName = departmentName;
         this.departmentDean = departmentDean;

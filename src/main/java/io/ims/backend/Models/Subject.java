@@ -37,7 +37,6 @@ public class Subject {
     public String units;
     public Integer lectureHours;
     public Integer labHours;
-    public Long departmentID;
 
     @ManyToMany(targetEntity = Student.class, mappedBy = "joinedStudentSubjects")
     private List<Student> enrolledStudents;
@@ -45,12 +44,15 @@ public class Subject {
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
     private Set<Professor> teachingProfessors;
 
-    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours, Long departmentID){
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;
         this.units = units;
         this.lectureHours = lectureHours;
         this.labHours = labHours;
-        this.departmentID = departmentID;
     }
 }
