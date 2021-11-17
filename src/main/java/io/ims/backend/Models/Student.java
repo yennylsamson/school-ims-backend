@@ -2,8 +2,7 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "studentID")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "userID")
 public class Student extends UserDetails{
     @SequenceGenerator(
            name = "student_sequence",
@@ -31,18 +33,16 @@ public class Student extends UserDetails{
     private String yearLevel;
     private String section;
 
-    @ManyToMany
-           @JoinTable(
-                   name="student_subjects",
-                   joinColumns = @JoinColumn(name="student_id"),
-                   inverseJoinColumns = @JoinColumn(name = "subject_id"))
-    private Set<Subject> joinedStudentSubjects;
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Subject.class)
+    @JoinTable(
+           name="student_subjects",
+           joinColumns = @JoinColumn(name="student_id"),
+           inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> joinedStudentSubjects;
 
-    @JsonManagedReference(value = "student-activity")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<Activity> activities;
 
-    @JsonBackReference(value = "course-student")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;

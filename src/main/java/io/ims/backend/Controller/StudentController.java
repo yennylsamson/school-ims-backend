@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "students")
@@ -35,6 +36,12 @@ public class StudentController {
         return studentService.getStudentByID(studentID);
     }
 
+    //GET STUDENT SUBJECTS
+    @GetMapping(path = "{studentID}/subject")
+    public List<Subject> getStudentSubjectByID(
+            @PathVariable("studentID") Long studentID) {
+        return studentService.getStudentsSubjects(studentID);
+    }
     //POST USER
     @PostMapping()
     public void registerNewStudent(@RequestBody Student student){
@@ -42,7 +49,7 @@ public class StudentController {
     }
 
     //PUT SUBJECT
-    @PutMapping(path="subject/{studentID}")
+    @PutMapping(path="{studentID}/subject")
     public void addNewSubject(
             @PathVariable("studentID") Long studentID,
             @RequestParam Long subjectID){

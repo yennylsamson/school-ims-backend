@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentService {
@@ -26,6 +27,15 @@ public class StudentService {
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
+    }
+
+    public List<Subject> getStudentsSubjects(Long studentID) {
+        Student student = studentRepository.findById(studentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "student with id " + studentID + " does not exists"
+                ));
+        return student.getJoinedStudentSubjects();
+
     }
 
     public Optional<Student> getStudentByID(Long studentID) {

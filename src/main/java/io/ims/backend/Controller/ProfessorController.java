@@ -1,6 +1,7 @@
 package io.ims.backend.Controller;
 
 import io.ims.backend.Models.Professor;
+import io.ims.backend.Models.Subject;
 import io.ims.backend.Services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,10 +35,25 @@ public class ProfessorController {
         return professorService.getProfessorByID(professorID);
     }
 
+    //GET STUDENT SUBJECTS
+    @GetMapping(path = "{professorID}/subject")
+    public List<Subject> getStudentSubjectByID(
+            @PathVariable("professorID") Long professorID) {
+        return professorService.getProfessorsSubjects(professorID);
+    }
+
     //POST USER
     @PostMapping()
     public void registerNewProfessor(@RequestBody Professor professor){
         professorService.addNewProfessor(professor);
+    }
+
+    //PUT SUBJECT
+    @PutMapping(path="{professorID}/subject")
+    public void addNewSubject(
+            @PathVariable("professorID") Long professorID,
+            @RequestParam Long subjectID){
+        professorService.addNewSubject(professorID, subjectID);
     }
 
     //PUT USER
