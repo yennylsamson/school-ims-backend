@@ -1,7 +1,9 @@
 package io.ims.backend.Services;
 
 import io.ims.backend.Models.Course;
+import io.ims.backend.Models.Department;
 import io.ims.backend.Repository.CourseRepository;
+import io.ims.backend.Repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, DepartmentRepository departmentRepository) {
         this.courseRepository = courseRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     public List<Course> getCourses() {
@@ -27,7 +31,12 @@ public class CourseService {
         return courseRepository.findById(courseID);
     }
 
-    public void addNewCourse(Course course) {
+    public void addNewCourse(Course course, Long departmentID) {
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
+                ));
+        course.setDepartment(department);
         courseRepository.save(course);
     }
 
@@ -50,6 +59,11 @@ public class CourseService {
                         "course with id " + courseID + " does not exists"
                 ));
 
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
+                ));
+
         if (courseName != null &&
                 courseName.length() > 0 &&
                 !Objects.equals(course.getCourseName(), course)) {
@@ -69,10 +83,9 @@ public class CourseService {
         }
 
         if (departmentID != null &&
-                !Objects.equals(course.getDepartmentID(), course)) {
-            course.setDepartmentID(departmentID);
+                !Objects.equals(course.getDepartment().getDepartmentID(), course)) {
+            course.setDepartment(department);
         }
-
 
     }
 }
