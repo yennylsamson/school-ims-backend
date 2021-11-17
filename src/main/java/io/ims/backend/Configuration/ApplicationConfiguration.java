@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @ComponentScan("io.ims.backend.*")
@@ -62,7 +63,7 @@ public class ApplicationConfiguration {
                     "School of Business and Accountancy",
                     "Dr. Maria S. Tanquilut"
             );
-            departmentRepository.saveAll(List.of(sba,sea));
+            departmentRepository.saveAll(List.of(sea,sba));
 
             //COURSE
             Course CPE = new Course(
@@ -122,8 +123,14 @@ public class ApplicationConfiguration {
                     "09123456789",
                     "Single"
             );
+            List<Subject> subjects = new ArrayList<Subject>();
+            subjects.add(calculus);
+            subjects.add(physicsLab);
+
             niyo.setDepartment(SEA);
             mitra.setDepartment(SEA);
+            niyo.setJoinedProfessorSubjects(subjects);
+            mitra.setJoinedProfessorSubjects(subjects);
             professorRepository.saveAll(List.of(niyo, mitra));
 
             Student ailger = new Student(
@@ -158,6 +165,8 @@ public class ApplicationConfiguration {
 
             ailger.setCourse(CPE);
             glenn.setCourse(CPE);
+            ailger.setJoinedStudentSubjects(subjects);
+            glenn.setJoinedStudentSubjects(subjects);
             studentRepository.saveAll(
                     List.of(ailger, glenn)
             );

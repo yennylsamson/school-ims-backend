@@ -42,7 +42,7 @@ public class Subject {
     private List<Student> enrolledStudents;
 
     @ManyToMany(mappedBy = "joinedProfessorSubjects")
-    private Set<Professor> teachingProfessors;
+    private List<Professor> teachingProfessors;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
