@@ -79,5 +79,6 @@ public class SubjectService {
                 !Objects.equals(subject.getDepartmentID(), subject)) {
             subject.setDepartmentID(departmentID);
         }
+
     }
 }

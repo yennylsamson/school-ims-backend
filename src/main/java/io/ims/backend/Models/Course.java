@@ -2,14 +2,23 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
+@Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "courseID")
 public class Course {
     @Id
     @SequenceGenerator(
@@ -25,52 +34,17 @@ public class Course {
     public String courseName;
     public String courseCode;
     public String chairperson;
-    public Long departmentID;
 
-    public Course (String courseName, String courseCode, String chairperson, Long departmentID) {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    private List<Student> students;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    public Course (String courseName, String courseCode, String chairperson) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.chairperson = chairperson;
-        this.departmentID = departmentID;
-    }
-
-    public Long getCourseID() {
-        return this.courseID;
-    }
-
-    public void setCourseID(Long courseID) {
-        this.courseID = courseID;
-    }
-
-    public String getCourseName() {
-        return this.courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseCode() {
-        return this.courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
-
-    public String getChairperson() {
-        return this.chairperson;
-    }
-
-    public void setChairperson(String chairperson) {
-        this.chairperson = chairperson;
-    }
-
-    public Long getDepartmentID() {
-        return departmentID;
-    }
-
-    public void setDepartmentID(Long departmentID) {
-        this.departmentID = departmentID;
     }
 }

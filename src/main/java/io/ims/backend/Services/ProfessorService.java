@@ -1,7 +1,11 @@
 package io.ims.backend.Services;
 
+import io.ims.backend.Models.Department;
 import io.ims.backend.Models.Professor;
+import io.ims.backend.Models.Subject;
+import io.ims.backend.Repository.DepartmentRepository;
 import io.ims.backend.Repository.ProfessorRepository;
+import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +18,39 @@ import java.util.Optional;
 @Service
 public class ProfessorService {
     private final ProfessorRepository professorRepository;
+    private final SubjectRepository subjectRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public ProfessorService(ProfessorRepository professorRepository) {
+    public ProfessorService(ProfessorRepository professorRepository, SubjectRepository subjectRepository, DepartmentRepository departmentRepository) {
         this.professorRepository = professorRepository;
+        this.subjectRepository = subjectRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     public List<Professor> getProfessors() {
         return professorRepository.findAll();
     }
 
+    public List<Subject> getProfessorsSubjects(Long professorID) {
+        Professor professor = professorRepository.findById(professorID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "professor with id " + professorID + " does not exists"
+                ));
+        return professor.getJoinedProfessorSubjects();
+
+    }
+
     public Optional<Professor> getProfessorByID(Long professorID) {
         return professorRepository.findById(professorID);
     }
 
-    public void addNewProfessor(Professor professor) {
+    public void addNewProfessor(Professor professor, Long departmentID) {
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
+                ));
+        professor.setDepartment(department);
         professorRepository.save(professor);
     }
 
@@ -56,6 +78,11 @@ public class ProfessorService {
         Professor professor = professorRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
                         "professor with id " + userID + " does not exists"
+                ));
+
+        Department department = departmentRepository.findById(departmentID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "department with id " + departmentID + " does not exists"
                 ));
 
         if (email != null &&
@@ -117,10 +144,23 @@ public class ProfessorService {
         }
 
         if (departmentID != null &&
-                !Objects.equals(professor.getDepartmentID(), professor)) {
-            professor.setDepartmentID(departmentID);
+                !Objects.equals(professor.getDepartment().getDepartmentID(), professor)) {
+            professor.setDepartment(department);
         }
 
+    }
+
+    @Transactional
+    public void addNewSubject(Long userID, Long subjectID) {
+        Professor professor = professorRepository.findById(userID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "professor with id " + userID + " does not exists"
+                ));
+        Subject subject = subjectRepository.findById(subjectID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "subject with id " + subjectID + " does not exists"
+                ));
+        professor.getJoinedProfessorSubjects().add(subject);
     }
 
 }

@@ -2,14 +2,21 @@ package io.ims.backend.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "activityID")
 public class Activity {
    @Id
    @SequenceGenerator(
@@ -27,6 +34,14 @@ public class Activity {
    public Integer studentScore;
    public Integer totalScore;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
+
    public Activity (String activityName, String activityType, Integer studentScore, Integer totalScore) {
        this.activityName = activityName;
        this.activityType = activityType;
@@ -34,44 +49,5 @@ public class Activity {
        this.totalScore = totalScore;
    }
 
-   public Long getActivityID() {
-       return this.activityID;
-   }
-
-   public void setActivityID(Long activityID) {
-       this.activityID = activityID;
-   }
-
-   public String getActivityName() {
-       return this.activityName;
-   }
-
-   public void setActivityName(String activityName) {
-       this.activityName = activityName;
-   }
-
-   public String getActivityType() {
-       return this.activityType;
-   }
-
-   public void setActivityType(String activityType) {
-       this.activityType = activityType;
-   }
-
-   public Integer getStudentScore() {
-       return this.studentScore;
-   }
-
-   public void setStudentScore(Integer studentScore) {
-       this.studentScore = studentScore;
-   }
-
-   public Integer getTotalScore() {
-       return this.totalScore;
-   }
-
-   public void setTotalScore(Integer totalScore) {
-       this.totalScore = totalScore;
-   }
 
 }
