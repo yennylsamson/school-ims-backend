@@ -24,20 +24,20 @@ public class ProfessorController {
 
     //GET ALL
     @GetMapping()
-    public List<Professor> getAllStudents(){
+    public List<Professor> getAllProfessors(){
         return professorService.getProfessors();
     }
 
     //GET SINGLE USER
     @GetMapping(path = "{professorID}")
-    public Optional<Professor> getStudentByID(
+    public Optional<Professor> getProfessorByID(
             @PathVariable("professorID") Long professorID){
         return professorService.getProfessorByID(professorID);
     }
 
-    //GET STUDENT SUBJECTS
+    //GET PROFESSOR SUBJECTS
     @GetMapping(path = "{professorID}/subject")
-    public List<Subject> getStudentSubjectByID(
+    public List<Subject> getProfessorSubjectByID(
             @PathVariable("professorID") Long professorID) {
         return professorService.getProfessorsSubjects(professorID);
     }
@@ -60,7 +60,7 @@ public class ProfessorController {
 
     //PUT USER
     @PutMapping(path = "{professorID}")
-    public void updateSubject(
+    public void updateProfessor(
             @PathVariable("professorID") Long professorID,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password,
@@ -79,7 +79,7 @@ public class ProfessorController {
 
     //DELETE USER
     @DeleteMapping(path = "{professorID}")
-    public void deleteSubject(
+    public void deleteProfessor(
             @PathVariable("professorID") Long professorID){
         professorService.deleteProfessor(professorID);
     }

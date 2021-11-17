@@ -25,26 +25,26 @@ public class AdminController {
 
     //GET ALL
     @GetMapping()
-    public List<Admin> getAllStudents(){
+    public List<Admin> getAllAdmins(){
         return adminService.getAdmins();
     }
 
     //GET SINGLE USER
     @GetMapping(path = "{adminID}")
-    public Optional<Admin> getStudentByID(
+    public Optional<Admin> getAdminByID(
             @PathVariable("adminID") Long adminID){
         return adminService.getAdminByID(adminID);
     }
 
     //POST USER
     @PostMapping()
-    public void registerNewProfessor(@RequestBody Admin admin){
+    public void registerNewAdmin(@RequestBody Admin admin){
         adminService.addNewAdmin(admin);
     }
 
     //PUT USER
     @PutMapping(path = "{adminID}")
-    public void updateSubject(
+    public void updateAdmin(
             @PathVariable("adminID") Long adminID,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password,
@@ -63,7 +63,7 @@ public class AdminController {
 
     //DELETE USER
     @DeleteMapping(path = "{adminID}")
-    public void deleteSubject(
+    public void deleteAdmin(
             @PathVariable("adminID") Long adminID){
         adminService.deleteAdmin(adminID);
     }

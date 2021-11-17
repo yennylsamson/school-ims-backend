@@ -36,8 +36,10 @@ public class CourseController {
 
     //POST USER
     @PostMapping()
-    public void registerNewCourse(@RequestBody Course course){
-        courseService.addNewCourse(course);
+    public void registerNewCourse(
+            @RequestBody Course course,
+            @RequestParam(required = false) Long departmentID){
+        courseService.addNewCourse(course, departmentID);
     }
 
     //PUT USER
