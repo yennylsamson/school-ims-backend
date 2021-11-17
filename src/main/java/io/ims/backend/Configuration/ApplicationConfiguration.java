@@ -185,9 +185,10 @@ public class ApplicationConfiguration {
             );
             activity1.setStudent(ailger);
             activity1.setProfessor(niyo);
-
+            activity1.setSubject(calculus);
             activity2.setStudent(ailger);
             activity2.setProfessor(mitra);
+            activity2.setSubject(physicsLab);
             activityRepository.saveAll(List.of(activity1,activity2));
         };
     }

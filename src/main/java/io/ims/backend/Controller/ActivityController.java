@@ -54,8 +54,9 @@ public class ActivityController {
     public void registerNewActivity(
             @RequestBody Activity activity,
             @RequestParam Long studentID,
-            @RequestParam Long professorID){
-        activityService.addNewActivity(activity, studentID, professorID);
+            @RequestParam Long professorID,
+            @RequestParam Long subjectID){
+        activityService.addNewActivity(activity, studentID, professorID, subjectID);
     }
 
     //PUT USER
@@ -67,9 +68,10 @@ public class ActivityController {
             @RequestParam(required = false) Integer studentScore,
             @RequestParam(required = false) Integer totalScore,
             @RequestParam(required = false) Long studentID,
-            @RequestParam(required = false) Long professorID
+            @RequestParam(required = false) Long professorID,
+            @RequestParam(required = false) Long subjectID
     ){
-        activityService.updateActivity(activityID, activityName, activityType, studentScore, totalScore, studentID, professorID);
+        activityService.updateActivity(activityID, activityName, activityType, studentScore, totalScore, studentID, professorID, subjectID);
     }
 
     //DELETE USER
