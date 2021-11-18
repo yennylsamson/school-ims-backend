@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class UserController {
     //SIGN IN
     @PostMapping()
     public User signIn(
-            @RequestBody User user){
+            @RequestBody User user) throws NoSuchAlgorithmException {
         User loggedIn = userService.verifyCredentials(user.getEmail(),user.getPassword());
 
         return  loggedIn;

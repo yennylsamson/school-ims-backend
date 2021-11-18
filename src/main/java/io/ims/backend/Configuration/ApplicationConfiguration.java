@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 @ComponentScan("io.ims.backend.*")
+
 @Configuration
 public class ApplicationConfiguration {
     private final DepartmentRepository departmentRepository;
@@ -35,13 +38,32 @@ public class ApplicationConfiguration {
         this.activityRepository = activityRepository;
     }
 
+
+
+
+
     @Bean
     CommandLineRunner departmentLineRunner(DepartmentRepository departmentRepository){
         return args -> {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            String adminpass = "adminpass";
+            String profpass = "profpass";
+            String pass = "pass";
+            md.update(adminpass.getBytes());
+            byte[] digest = md.digest();
+            String adminHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+
+            md.update(profpass.getBytes());
+            digest = md.digest();
+            String profHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+
+            md.update(pass.getBytes());
+            digest = md.digest();
+            String studHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
             //ADMIN
             Admin admin = new Admin(
                     "admin@admin.email.com",
-                    "adminpass",
+                    adminHash,
                     "admin",
                     "Pekamasanting",
                     "Malagungdili",
@@ -101,7 +123,7 @@ public class ApplicationConfiguration {
 
             Professor niyo = new Professor(
                     "niyo@professor.email.com",
-                    "profpass",
+                    profHash,
                     "professor",
                     "Niyo Kenn",
                     "Jimenez",
@@ -113,7 +135,7 @@ public class ApplicationConfiguration {
             );
             Professor mitra = new Professor(
                     "mitra@professor.email.com",
-                    "profpass",
+                    profHash,
                     "professor",
                     "Michael",
                     "Mitra",
@@ -135,7 +157,7 @@ public class ApplicationConfiguration {
 
             Student ailger = new Student(
                     "ailgermae@student.email.com",
-                    "pass",
+                    studHash,
                     "student",
                     "Ailger Mae",
                     "Uchiha",
@@ -150,7 +172,7 @@ public class ApplicationConfiguration {
             );
             Student glenn = new Student(
                     "glennmarie@student.email.com",
-                    "pass",
+                    studHash,
                     "student",
                     "Glenn Marie",
                     "Uzumaki",

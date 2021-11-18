@@ -1,6 +1,5 @@
 package io.ims.backend.Services;
 
-import io.ims.backend.Models.Course;
 import io.ims.backend.Models.User;
 import io.ims.backend.Models.UserDetails;
 import io.ims.backend.Repository.UserDetailsRepository;
@@ -9,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -23,17 +25,22 @@ public class UserService {
         this.userDetailsRepository = userDetailsRepository;
     }
 
+
+
     public User getUserByEmail(String email) {
         return userRepository.findStudentByEmail(email);
     }
 
-    public User verifyCredentials(String email, String password) {
+    public User verifyCredentials(String email, String password) throws NoSuchAlgorithmException {
         User user = userRepository.findStudentByEmail(email);
-
-        System.out.println(password);
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        String hashedpass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        System.out.println(hashedpass);
         System.out.println(user.getPassword());
         User loggedIn = new User();
-        if (password.equals(user.getPassword())) {
+        if (hashedpass.equals(user.getPassword())) {
             loggedIn.setUserID(user.getUserID());
             loggedIn.setUserRole(user.getUserRole());
         }

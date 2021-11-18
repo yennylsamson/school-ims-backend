@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +31,12 @@ public class AdminService {
         return adminRepository.findById(adminID);
     }
 
-    public void addNewAdmin(Admin admin) {
+    public void addNewAdmin(Admin admin) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(admin.getPassword().getBytes());
+        byte[] digest = md.digest();
+        String hashedpass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        admin.setPassword(hashedpass);
         adminRepository.save(admin);
     }
 
@@ -52,7 +60,7 @@ public class AdminService {
                                 String homeAddress,
                                 String contactNumber,
                                 String civilStatus,
-                                String office) {
+                                String office) throws NoSuchAlgorithmException {
         Admin admin = adminRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
                         "admin with id " + userID + " does not exists"
@@ -65,9 +73,12 @@ public class AdminService {
         }
 
         if (password != null &&
-                password.length() > 0 &&
-                !Objects.equals(admin.getPassword(), admin)) {
-            admin.setPassword(password);
+                password.length() > 0) {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            String hashedpass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+            admin.setPassword(hashedpass);
         }
 
         if (userRole != null &&
