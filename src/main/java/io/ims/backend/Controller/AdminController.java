@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class AdminController {
 
     //POST USER
     @PostMapping()
-    public void registerNewAdmin(@RequestBody Admin admin){
+    public void registerNewAdmin(@RequestBody Admin admin) throws NoSuchAlgorithmException {
         adminService.addNewAdmin(admin);
     }
 
@@ -57,7 +58,7 @@ public class AdminController {
             @RequestParam(required = false) String homeAddress,
             @RequestParam(required = false) String contactNumber,
             @RequestParam(required = false) String civilStatus,
-            @RequestParam(required = false) String office) {
+            @RequestParam(required = false) String office) throws NoSuchAlgorithmException {
         adminService.updateAdmin(adminID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, office);
     }
 

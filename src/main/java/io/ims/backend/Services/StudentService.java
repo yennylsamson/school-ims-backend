@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -45,11 +48,16 @@ public class StudentService {
         return studentRepository.findById(studentID);
     }
 
-    public void addNewStudent(Student student, Long courseID) {
+    public void addNewStudent(Student student, Long courseID) throws NoSuchAlgorithmException {
         Course course = courseRepository.findById(courseID)
                 .orElseThrow(() -> new IllegalStateException(
                         "course with id " + courseID + " does not exists"
                 ));
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(student.getPassword().getBytes());
+        byte[] digest = md.digest();
+        String hashedpass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        student.setPassword(hashedpass);
         student.setCourse(course);
         studentRepository.save(student);
     }
@@ -76,7 +84,7 @@ public class StudentService {
                               String civilStatus,
                               String yearLevel,
                               String section,
-                              Long courseID) {
+                              Long courseID) throws NoSuchAlgorithmException {
         Student student = studentRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + userID + " does not exists"
@@ -89,9 +97,12 @@ public class StudentService {
         }
 
         if (password != null &&
-                password.length() > 0 &&
-                !Objects.equals(student.getPassword(), student)) {
-            student.setPassword(password);
+                password.length() > 0) {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            String hashedpass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+            student.setPassword(hashedpass);
         }
 
         if (userRole != null &&

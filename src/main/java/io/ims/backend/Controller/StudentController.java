@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class StudentController {
     @PostMapping()
     public void registerNewStudent(
             @RequestBody Student student,
-            @RequestParam Long courseID){
+            @RequestParam Long courseID) throws NoSuchAlgorithmException {
         studentService.addNewStudent(student, courseID);
     }
 
@@ -75,7 +76,7 @@ public class StudentController {
             @RequestParam(required = false) String civilStatus,
             @RequestParam(required = false) String yearLevel,
             @RequestParam(required = false) String section,
-            @RequestParam(required = false) Long courseID){
+            @RequestParam(required = false) Long courseID) throws NoSuchAlgorithmException {
         studentService.updateStudent(studentID, email, password, userRole, firstName, lastName, gender, birthDate, homeAddress, contactNumber, civilStatus, yearLevel, section, courseID);
     }
 
