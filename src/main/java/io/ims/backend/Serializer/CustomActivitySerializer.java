@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import io.ims.backend.Models.Activity;
 import io.ims.backend.Models.Professor;
 import io.ims.backend.Models.Student;
+import io.ims.backend.Models.Subject;
 
 import java.io.IOException;
 
@@ -50,6 +51,13 @@ public class CustomActivitySerializer extends StdSerializer<Activity> {
                 generator.writeStringField("firstName", professor.getFirstName());
                 generator.writeStringField("lastName", professor.getLastName());
                 generator.writeStringField("departmentName", professor.getDepartment().getDepartmentName());
+            generator.writeEndObject();
+        generator.writeFieldName("subject");
+            Subject subject = activity.getSubject();
+            generator.writeStartObject();
+            generator.writeNumberField("subjectID", subject.getSubjectID());
+            generator.writeStringField("subjectName", subject.getSubjectName());
+            generator.writeStringField("subjectCode", subject.getSubjectCode());
             generator.writeEndObject();
         generator.writeEndObject();
     }

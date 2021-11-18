@@ -48,6 +48,9 @@ public class Subject {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+    private List<Activity> activities;
+
     public Subject(String subjectName, String subjectCode, String units, Integer lectureHours, Integer labHours){
         this.subjectName = subjectName;
         this.subjectCode = subjectCode;

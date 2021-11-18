@@ -52,6 +52,7 @@ public class CustomStudentSerializer extends StdSerializer<Student> {
                 generator.writeStringField("units", subject.getUnits());
                 generator.writeNumberField("lectureHours", subject.getLectureHours());
                 generator.writeNumberField("labHours", subject.getLabHours());
+                generator.writeStringField("departmentName", subject.getDepartment().getDepartmentName());
                 generator.writeEndObject();
             }
             generator.writeEndArray();
@@ -60,6 +61,7 @@ public class CustomStudentSerializer extends StdSerializer<Student> {
             for (Activity activity : student.getActivities()) {
                 generator.writeStartObject();
                 generator.writeNumberField("activityID", activity.getActivityID());
+                generator.writeStringField("subjectName", activity.getSubject().getSubjectName());
                 generator.writeStringField("activityName", activity.getActivityName());
                 generator.writeStringField("activityType", activity.getActivityType());
                 generator.writeNumberField("studentScore", activity.getStudentScore());

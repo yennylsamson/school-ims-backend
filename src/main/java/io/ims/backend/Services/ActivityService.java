@@ -3,9 +3,11 @@ package io.ims.backend.Services;
 import io.ims.backend.Models.Activity;
 import io.ims.backend.Models.Professor;
 import io.ims.backend.Models.Student;
+import io.ims.backend.Models.Subject;
 import io.ims.backend.Repository.ActivityRepository;
 import io.ims.backend.Repository.ProfessorRepository;
 import io.ims.backend.Repository.StudentRepository;
+import io.ims.backend.Repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,15 @@ public class ActivityService {
     private final ActivityRepository activityRepository;
     private final StudentRepository studentRepository;
     private final ProfessorRepository professorRepository;
+    private final SubjectRepository subjectRepository;
 
 
     @Autowired
-    public  ActivityService(ActivityRepository activityRepository, StudentRepository studentRepository, ProfessorRepository professorRepository) {
+    public  ActivityService(ActivityRepository activityRepository, StudentRepository studentRepository, ProfessorRepository professorRepository, SubjectRepository subjectRepository) {
         this.activityRepository = activityRepository;
         this.studentRepository = studentRepository;
         this.professorRepository = professorRepository;
+        this.subjectRepository = subjectRepository;
     }
 
 
@@ -46,7 +50,7 @@ public class ActivityService {
         return activityRepository.findActivityByStudentID(studentID);
     }
 
-    public void addNewActivity(Activity activity, Long studentID, Long professorID) {
+    public void addNewActivity(Activity activity, Long studentID, Long professorID, Long subjectID) {
         Student student = studentRepository.findById(studentID)
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + studentID + " does not exists"
@@ -55,6 +59,11 @@ public class ActivityService {
                 .orElseThrow(() -> new IllegalStateException(
                         "professor with id " + professorID + " does not exists"
                 ));
+        Subject subject = subjectRepository.findById(subjectID)
+                .orElseThrow(() -> new IllegalStateException(
+                        "subject with id " + subjectID + " does not exists"
+                ));
+        activity.setSubject(subject);
         activity.setStudent(student);
         activity.setProfessor(professor);
         activityRepository.save(activity);
@@ -75,7 +84,8 @@ public class ActivityService {
                               Integer studentScore,
                               Integer totalScore,
                                Long studentID,
-                               Long professorID) {
+                               Long professorID,
+                               Long subjectID) {
         Activity activity = activityRepository.findById(activityID)
                 .orElseThrow(() -> new IllegalStateException(
                         "activity with id " + activityID + " does not exists"
@@ -119,6 +129,15 @@ public class ActivityService {
                             "professor with id " + professorID + " does not exists"
                     ));
             activity.setProfessor(professor);
+        }
+
+        if (subjectID != null &&
+                !Objects.equals(activity.getSubject().getSubjectID(), activity)) {
+            Subject subject = subjectRepository.findById(subjectID)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "subject with id " + subjectID + " does not exists"
+                    ));
+            activity.setSubject(subject);
         }
     }
 
