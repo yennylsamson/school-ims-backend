@@ -52,6 +52,7 @@ public class CustomStudentSerializer extends StdSerializer<Student> {
                 generator.writeStringField("units", subject.getUnits());
                 generator.writeNumberField("lectureHours", subject.getLectureHours());
                 generator.writeNumberField("labHours", subject.getLabHours());
+                generator.writeStringField("departmentName", subject.getDepartment().getDepartmentName());
                 generator.writeEndObject();
             }
             generator.writeEndArray();
