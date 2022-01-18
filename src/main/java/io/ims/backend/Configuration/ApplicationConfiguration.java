@@ -65,11 +65,11 @@ public class ApplicationConfiguration {
                     "admin@admin.email.com",
                     adminHash,
                     "admin",
-                    "Pekamasanting",
-                    "Malagungdili",
+                    "Juan",
+                    "Dela Cruz",
                     "Male",
                     LocalDate.of(2000, Month.JANUARY,1),
-                    "Planet One Piece",
+                    "Angeles, Pampanga",
                     "09123456789",
                     "Single",
                     "Admin Office"
@@ -95,7 +95,7 @@ public class ApplicationConfiguration {
             );
             Course CE = new Course(
                     "Civil Engineering",
-                    "CE",
+                    "ChE",
                     "Engr. Filipina De Guzman"
             );
             Department SEA = departmentRepository.getById(1L);
@@ -129,7 +129,7 @@ public class ApplicationConfiguration {
                     "Jimenez",
                     "Male",
                     LocalDate.of(2000, Month.JANUARY,1),
-                    "Angeles City",
+                    "Angeles, Pampanga",
                     "09123456789",
                     "Married"
             );
@@ -141,7 +141,7 @@ public class ApplicationConfiguration {
                     "Mitra",
                     "Male",
                     LocalDate.of(2000, Month.JANUARY,1),
-                    "Angeles City",
+                    "Angeles, Pampanga",
                     "09123456789",
                     "Single"
             );
@@ -159,11 +159,11 @@ public class ApplicationConfiguration {
                     "ailgermae@student.email.com",
                     studHash,
                     "student",
-                    "Ailger Mae",
-                    "Uchiha",
+                    "Ailger",
+                    "Mendoza",
                     "Male",
                     LocalDate.of(2000, Month.JANUARY,1),
-                    "Planet Namek",
+                    "Angeles, Pampanga",
                     "09123456789",
                     "Married",
                     "4th Year",
@@ -174,11 +174,11 @@ public class ApplicationConfiguration {
                     "glennmarie@student.email.com",
                     studHash,
                     "student",
-                    "Glenn Marie",
-                    "Uzumaki",
+                    "Glenn",
+                    "Uy Cana",
                     "Male",
                     LocalDate.of(2000, Month.JANUARY,1),
-                    "Planet Konoha",
+                    "Angeles, Pampanga",
                     "09123456789",
                     "Married",
                     "4th Year",
