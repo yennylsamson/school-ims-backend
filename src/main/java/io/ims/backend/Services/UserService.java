@@ -28,11 +28,11 @@ public class UserService {
 
 
     public User getUserByEmail(String email) {
-        return userRepository.findStudentByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
     public User verifyCredentials(String email, String password) throws NoSuchAlgorithmException {
-        User user = userRepository.findStudentByEmail(email);
+        User user = userRepository.findUserByEmail(email);
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         byte[] digest = md.digest();
